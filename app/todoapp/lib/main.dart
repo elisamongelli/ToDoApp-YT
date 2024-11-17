@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'models/global.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,13 +34,85 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        
+    return MaterialApp(
+      color: Colors.yellow,
+      home: SafeArea(
+        child: DefaultTabController(
+          length: 3,
+          initialIndex: 1,
+          child: Scaffold(
+            body: Stack(
+              children: <Widget>[
+                TabBarView(
+                  children: [
+                    Container(
+                      color: Colors.orange,
+                    ),
+                    Container(
+                      color: darkGreyColor,
+                    ),
+                    Container(
+                      color: Colors.lightGreen,
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 30
+                  ),
+                  height: 175,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50)
+                    )
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Task List",
+                        style: taskListTitleStyle,
+                      ),
+                      Container(),
+                    ],
+                  )
+                ),
+                FloatingActionButton(
+                  child: Icon(Icons.add),
+                  backgroundColor: Colors.red,
+                  shape: CircleBorder(),
+                  onPressed:() {
+                    
+                  },
+                )
+              ] 
+            ),
+            appBar: AppBar(
+              title: new TabBar(
+                tabs: [
+                  Tab(
+                    icon: new Icon(Icons.home),
+                  ),
+                  Tab(
+                    icon: new Icon(Icons.perm_identity),
+                  ),
+                  Tab(
+                    icon: new Icon(Icons.settings),
+                  )
+                ],
+                labelColor: Colors.orange,
+                unselectedLabelColor: darkGreyColor,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.all(5.0),
+                indicatorColor: Colors.transparent,
+                dividerColor: Colors.transparent,
+              ),
+              backgroundColor: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }
