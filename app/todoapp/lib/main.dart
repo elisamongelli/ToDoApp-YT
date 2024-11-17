@@ -79,13 +79,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   )
                 ),
-                FloatingActionButton(
-                  child: Icon(Icons.add),
-                  backgroundColor: Colors.red,
-                  shape: CircleBorder(),
-                  onPressed:() {
-                    
-                  },
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 150,
+                    left: MediaQuery.of(context).size.width * 0.5,
+                  ),
+                  child: FloatingActionButton(
+                    child: Container(
+                      // add container's dimension
+                      child: Icon(Icons.add)
+                    ),
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    shape: CircleBorder(),
+                    onPressed:() {
+                      
+                    },
+                  ),
                 )
               ] 
             ),
