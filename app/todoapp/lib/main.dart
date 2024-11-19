@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'models/global.dart';
 
 void main() {
@@ -80,16 +81,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ),
                 Container(
+                  height: 70,
+                  width: 70,
                   margin: EdgeInsets.only(
-                    top: 150,
-                    left: MediaQuery.of(context).size.width * 0.5,
+                    top: 140,
+                    left: (MediaQuery.of(context).size.width * 0.5) - 35,
                   ),
                   child: FloatingActionButton(
-                    child: Container(
-                      // add container's dimension
-                      child: Icon(Icons.add)
-                    ),
-                    backgroundColor: Colors.red,
+                    //child: Icon(Icons.add, size: 60),
+                    child: Icon(Entypo.plus, size: 60),
+                    backgroundColor: redMainColor,
                     foregroundColor: Colors.white,
                     shape: CircleBorder(),
                     onPressed:() {
