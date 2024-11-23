@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
+import 'package:flutter/cupertino.dart';
 import 'models/global.dart';
 
 void main() {
@@ -88,35 +88,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     left: (MediaQuery.of(context).size.width * 0.5) - 35,
                   ),
                   child: FloatingActionButton(
-                    //child: Icon(Icons.add, size: 60),
-                    child: Icon(Entypo.plus, size: 60),
                     backgroundColor: redMainColor,
                     foregroundColor: Colors.white,
-                    shape: CircleBorder(),
+                    shape: const CircleBorder(),
                     onPressed:() {
                       
                     },
+                    child: const Icon(
+                      CupertinoIcons.add, 
+                      size: 50, 
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ] 
             ),
             appBar: AppBar(
-              title: new TabBar(
-                tabs: [
+              title: TabBar(
+                tabs: const [
                   Tab(
-                    icon: new Icon(Icons.home),
+                    icon: Icon(Icons.home),
                   ),
                   Tab(
-                    icon: new Icon(Icons.perm_identity),
+                    icon: Icon(Icons.perm_identity),
                   ),
                   Tab(
-                    icon: new Icon(Icons.settings),
+                    icon: Icon(Icons.settings),
                   )
                 ],
                 labelColor: Colors.orange,
                 unselectedLabelColor: darkGreyColor,
                 indicatorSize: TabBarIndicatorSize.label,
-                indicatorPadding: EdgeInsets.all(5.0),
+                indicatorPadding: const EdgeInsets.all(5.0),
                 indicatorColor: Colors.transparent,
                 dividerColor: Colors.transparent,
               ),
