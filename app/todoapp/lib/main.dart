@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'models/global.dart';
 
 void main() {
@@ -49,9 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       color: Colors.orange,
                     ),
-                    Container(
-                      color: darkGreyColor,
-                    ),
+                    IntrayPage(),
                     Container(
                       color: Colors.lightGreen,
                     ),
