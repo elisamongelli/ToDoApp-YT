@@ -107,13 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
               title: TabBar(
                 tabs: const [
                   Tab(
-                    icon: Icon(Icons.home),
+                    icon: Icon(CupertinoIcons.home),
                   ),
                   Tab(
-                    icon: Icon(Icons.perm_identity),
+                    icon: Icon(CupertinoIcons.person),
                   ),
                   Tab(
-                    icon: Icon(Icons.settings),
+                    icon: Icon(CupertinoIcons.settings),
                   )
                 ],
                 labelColor: Colors.orange,
