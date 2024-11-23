@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/global.dart';
+import 'package:todoapp/models/widgets/intray_todo_widget.dart';
 
 
 class IntrayPage extends StatefulWidget {
+  const IntrayPage({super.key});
+
   @override
   State<IntrayPage> createState() => _IntrayPageState();
 }
@@ -23,100 +26,17 @@ class _IntrayPageState extends State<IntrayPage> {
   
   List<Widget> getList() {
 
-    List<Container> list = [];
+    List<IntrayTodo> list = [];
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 8; i++) {
       list.add(
-        Container(
-          color: Colors.red,
-          height: 100,
-          margin: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 10,
-          ),
-        ),
-      );
-      list.add(
-        Container(
-          color: Colors.orange,
-          height: 100,
-          margin: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 10
-          ),
-        ),
-      );
-      list.add(
-        Container(
-          color: Colors.yellow,
-          height: 100,
-          margin: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 10
-          ),
-        ),
+        const IntrayTodo(
+          "Titolo di prova",
+          "Sottotitolo di prova",
+        )
       );
     }
 
     return list;
-    /* return [
-      Container(
-        color: Colors.red,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10,
-        ),
-      ),
-      Container(
-        color: Colors.orange,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10
-        ),
-      ),
-      Container(
-        color: Colors.yellow,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10
-        ),
-      ),
-      Container(
-        color: Colors.red,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10
-        ),
-      ),
-      Container(
-        color: Colors.orange,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10
-        ),
-      ),
-      Container(
-        color: Colors.yellow,
-        height: 100,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          bottom: 10
-        ),
-      ),
-    ]; */
   }
 }
