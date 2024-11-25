@@ -11,20 +11,55 @@ class IntrayPage extends StatefulWidget {
 }
 
 class _IntrayPageState extends State<IntrayPage> {
+
+  List<IntrayTodo> list = [];
   
   @override
   Widget build(BuildContext context) {
     
     return Container(
       color: darkGreyColor,
-      child: ListView(
+      child: ReorderableListView(
         padding: const EdgeInsets.only(top: 230),
         children: getList(),
+        onReorder: _onReorder,
       ),
     );
   }
+
+
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final IntrayTodo item = list.removeAt(oldIndex);
+      list.insert(newIndex, item);
+    });
+  }
+
+
   
-  List<Widget> getList() {
+  List<IntrayTodo> getList() {
+
+    for (int i = 0; i < 8; i++) {
+      list.add(
+        IntrayTodo(
+          keyValue: i.toString(), 
+          title: "Titolo di prova", 
+          subtitle: "Sottotitolo di prova")
+        /* IntrayTodo(
+          i.toString(),
+          "Titolo di prova",
+          "Sottotitolo di prova",
+        ) */
+      );
+    }
+
+    return list;
+  }
+  
+  /* List<Widget> getList() {
 
     List<IntrayTodo> list = [];
 
@@ -38,5 +73,5 @@ class _IntrayPageState extends State<IntrayPage> {
     }
 
     return list;
-  }
+  } */
 }
