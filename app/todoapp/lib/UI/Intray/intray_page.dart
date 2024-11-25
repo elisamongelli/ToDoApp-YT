@@ -17,18 +17,45 @@ class _IntrayPageState extends State<IntrayPage> {
   @override
   Widget build(BuildContext context) {
     
+    list = getList();
+
     return Container(
       color: darkGreyColor,
-      child: ReorderableListView(
+      child: _buildReorderableListView(context),/* ReorderableListView(
         padding: const EdgeInsets.only(top: 230),
-        children: getList(),
         onReorder: _onReorder,
-      ),
+        children: list,
+      ), */
     );
   }
 
 
-  void _onReorder(int oldIndex, int newIndex) {
+  Widget _buildListTile(BuildContext context, IntrayTodo item) {
+    
+    return ListTile(
+      key: Key(item.keyValue),
+      title: Text(item.title),
+      /* subtitle: Text(item.subtitle), */
+    );
+  }
+
+
+  Widget _buildReorderableListView(BuildContext context) {
+    return ReorderableListView(
+      padding: const EdgeInsets.only(top: 230),
+      children: list.map((IntrayTodo item) => _buildListTile(context, item)).toList(),
+      onReorder: (oldIndex, newIndex) {
+        setState(() {
+          IntrayTodo item = list[oldIndex];
+          list.remove(item);
+          list.insert(newIndex, item);
+        });
+      },
+    );
+  }
+
+
+  /* void _onReorder(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;
@@ -36,18 +63,18 @@ class _IntrayPageState extends State<IntrayPage> {
       final IntrayTodo item = list.removeAt(oldIndex);
       list.insert(newIndex, item);
     });
-  }
+  } */
 
 
   
   List<IntrayTodo> getList() {
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 11; i++) {
       list.add(
         IntrayTodo(
           keyValue: i.toString(), 
           title: "Titolo di prova", 
-          subtitle: "Sottotitolo di prova")
+          /* subtitle: "Sottotitolo di prova" */)
         /* IntrayTodo(
           i.toString(),
           "Titolo di prova",

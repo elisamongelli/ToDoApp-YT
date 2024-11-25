@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       color: Colors.orange,
                     ),
-                    const IntrayPage(),
+                    IntrayPage(),
                     Container(
                       color: Colors.lightGreen,
                     ),
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   height: 175,
                   decoration: const BoxDecoration(
-                    color: Colors.transparent,
+                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                       bottomRight: Radius.circular(50)

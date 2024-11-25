@@ -5,10 +5,10 @@ import 'package:todoapp/models/global.dart';
 class IntrayTodo extends StatelessWidget {
     
     final String title;
-    final String subtitle;
+    /* final String subtitle; */
     final String keyValue;
 
-    const IntrayTodo({required this.keyValue, required this.title, required this.subtitle});
+    const IntrayTodo({required this.keyValue, required this.title/* , required this.subtitle */});
     //IntrayTodo({this.keyValue, this.title, this.subtitle});
 
     @override
@@ -45,13 +45,13 @@ class IntrayTodo extends StatelessWidget {
                                 title.toString(),
                                 style: singleTaskTitle,
                             ),
-                            Align(
+                            /* Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                     subtitle.toString(),
                                     style: singleTaskSubtitle,
                                 )
-                            ),
+                            ), */
                         ],
                     )
                 ],
