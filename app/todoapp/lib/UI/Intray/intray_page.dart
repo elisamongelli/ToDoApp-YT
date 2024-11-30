@@ -19,9 +19,29 @@ class _IntrayPageState extends State<IntrayPage> {
     
     list = getList();
 
+
+
+
+    /************
+     * 
+     * 
+     * PROVARE A LANCIARE COSI' COM'E', SE FUNZIONA HO LA LISTTILE 
+     * PERCHE' LA CLASSE IntrayTodo HA LA RETURN LISTTILE 
+     * 
+     * 
+     ************/
+
+
+
+
+
+
     return Container(
       color: darkGreyColor,
-      child: _buildReorderableListView(context),/* ReorderableListView(
+      child: ListView(
+        padding: const EdgeInsets.only(top: 230),
+        children: getList(),//list.map((IntrayTodo item) => _buildListTile(context, item)).toList(),
+      ) /* _buildReorderableListView(context), *//* ReorderableListView(
         padding: const EdgeInsets.only(top: 230),
         onReorder: _onReorder,
         children: list,
@@ -35,12 +55,12 @@ class _IntrayPageState extends State<IntrayPage> {
     return ListTile(
       key: Key(item.keyValue),
       title: Text(item.title),
-      /* subtitle: Text(item.subtitle), */
+      subtitle: Text(item.subtitle),
     );
   }
 
 
-  Widget _buildReorderableListView(BuildContext context) {
+  /* Widget _buildReorderableListView(BuildContext context) {
     return ReorderableListView(
       padding: const EdgeInsets.only(top: 230),
       children: list.map((IntrayTodo item) => _buildListTile(context, item)).toList(),
@@ -52,7 +72,7 @@ class _IntrayPageState extends State<IntrayPage> {
         });
       },
     );
-  }
+  } */
 
 
   /* void _onReorder(int oldIndex, int newIndex) {
@@ -74,7 +94,7 @@ class _IntrayPageState extends State<IntrayPage> {
         IntrayTodo(
           keyValue: i.toString(), 
           title: "Titolo di prova", 
-          /* subtitle: "Sottotitolo di prova" */)
+          subtitle: "Sottotitolo di prova")
         /* IntrayTodo(
           i.toString(),
           "Titolo di prova",

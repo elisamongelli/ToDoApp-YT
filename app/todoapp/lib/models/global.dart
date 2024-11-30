@@ -22,6 +22,6 @@ TextStyle singleTaskTitle = TextStyle(
 TextStyle singleTaskSubtitle = TextStyle(
   fontFamily: 'Avenir',
   fontWeight: FontWeight.normal,
-  color: darkGreyColor,
+  color: Colors.red,//darkGreyColor,
   fontSize: 15
 );
