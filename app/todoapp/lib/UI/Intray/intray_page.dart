@@ -10,6 +10,58 @@ class IntrayPage extends StatefulWidget {
   State<IntrayPage> createState() => _IntrayPageState();
 }
 
+
+class _IntrayPageState extends State<IntrayPage> {
+
+  late List<IntrayTodo> list = [];
+
+
+  _IntrayPageState() {
+    list = getList();
+  }
+
+  
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      color: darkGreyColor,
+      child: ReorderableListView(
+        padding: const EdgeInsets.only(top: 230),
+        onReorder: _onReorder,
+        children: list, 
+      ),
+    );
+  }
+
+
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final IntrayTodo item = list.removeAt(oldIndex);
+      list.insert(newIndex, item);
+    });
+  }
+
+  List<IntrayTodo> getList() {
+
+    for (int i = 0; i < 11; i++) {
+      list.add(
+        IntrayTodo(
+          "Titolo di prova",
+          "Sottotitolo di prova",
+          ValueKey(i)
+        )
+      );
+    }
+
+    return list;
+  }
+}
+
+/* 
 class _IntrayPageState extends State<IntrayPage> {
 
   List<IntrayTodo> list = [];
@@ -17,24 +69,7 @@ class _IntrayPageState extends State<IntrayPage> {
   @override
   Widget build(BuildContext context) {
     
-    list = getList();
-
-
-
-
-    /************
-     * 
-     * 
-     * PROVARE A LANCIARE COSI' COM'E', SE FUNZIONA HO LA LISTTILE 
-     * PERCHE' LA CLASSE IntrayTodo HA LA RETURN LISTTILE 
-     * 
-     * 
-     ************/
-
-
-
-
-
+    //list = getList();
 
     return Container(
       color: darkGreyColor,
@@ -50,14 +85,14 @@ class _IntrayPageState extends State<IntrayPage> {
   }
 
 
-  Widget _buildListTile(BuildContext context, IntrayTodo item) {
+  /* Widget _buildListTile(BuildContext context, IntrayTodo item) {
     
     return ListTile(
       key: Key(item.keyValue),
       title: Text(item.title),
       subtitle: Text(item.subtitle),
     );
-  }
+  } */
 
 
   /* Widget _buildReorderableListView(BuildContext context) {
@@ -75,7 +110,7 @@ class _IntrayPageState extends State<IntrayPage> {
   } */
 
 
-  /* void _onReorder(int oldIndex, int newIndex) {
+  void _onReorder(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
         newIndex -= 1;
@@ -83,7 +118,7 @@ class _IntrayPageState extends State<IntrayPage> {
       final IntrayTodo item = list.removeAt(oldIndex);
       list.insert(newIndex, item);
     });
-  } */
+  }
 
 
   
@@ -94,31 +129,11 @@ class _IntrayPageState extends State<IntrayPage> {
         IntrayTodo(
           keyValue: i.toString(), 
           title: "Titolo di prova", 
-          subtitle: "Sottotitolo di prova")
-        /* IntrayTodo(
-          i.toString(),
-          "Titolo di prova",
-          "Sottotitolo di prova",
-        ) */
-      );
-    }
-
-    return list;
-  }
-  
-  /* List<Widget> getList() {
-
-    List<IntrayTodo> list = [];
-
-    for (int i = 0; i < 8; i++) {
-      list.add(
-        const IntrayTodo(
-          "Titolo di prova",
-          "Sottotitolo di prova",
+          subtitle: "Sottotitolo di prova"
         )
       );
     }
 
     return list;
-  } */
-}
+  }
+} */
