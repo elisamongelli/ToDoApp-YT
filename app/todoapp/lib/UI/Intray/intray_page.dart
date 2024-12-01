@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
 import 'package:todoapp/models/widgets/intray_todo_widget.dart';
 
@@ -13,11 +14,11 @@ class IntrayPage extends StatefulWidget {
 
 class _IntrayPageState extends State<IntrayPage> {
 
-  late List<IntrayTodo> list = [];
+  late List<Task> taskList = [];
 
 
   _IntrayPageState() {
-    list = getList();
+    taskList = getList();
   }
 
   
@@ -26,11 +27,23 @@ class _IntrayPageState extends State<IntrayPage> {
 
     return Container(
       color: darkGreyColor,
-      child: ReorderableListView(
-        padding: const EdgeInsets.only(top: 230),
-        onReorder: _onReorder,
-        children: list, 
-      ),
+      child: /* Theme(
+        data: ThemeData(
+          canvasColor: darkGreyColor,
+        ),
+        child: */ ReorderableListView(
+          proxyDecorator: (child, index, animation) {
+            return Material(
+              shadowColor: Colors.transparent,
+              color: Colors.transparent,
+              child: child,
+            );
+          },
+          padding: const EdgeInsets.only(top: 230),
+          onReorder: _onReorder,
+          children: taskList,
+        ),
+      // ),
     );
   }
 
@@ -40,24 +53,25 @@ class _IntrayPageState extends State<IntrayPage> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final IntrayTodo item = list.removeAt(oldIndex);
-      list.insert(newIndex, item);
+      final Task item = taskList.removeAt(oldIndex);
+      taskList.insert(newIndex, item);
     });
   }
 
-  List<IntrayTodo> getList() {
+  List<Task> getList() {
 
     for (int i = 0; i < 11; i++) {
-      list.add(
-        IntrayTodo(
+      taskList.add(
+        Task(
           "Titolo di prova",
-          "Sottotitolo di prova",
+          "Note di prova",
+          false,
           ValueKey(i)
         )
       );
     }
 
-    return list;
+    return taskList;
   }
 }
 

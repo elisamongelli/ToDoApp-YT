@@ -5,10 +5,10 @@ import 'package:todoapp/models/global.dart';
 class IntrayTodo extends StatelessWidget {
     
     final String title;
-    final String subtitle;
+    final String notes;
     final Key key;
 
-    const IntrayTodo(this.title, this.subtitle, this.key) : super(key: key);
+    const IntrayTodo(this.title, this.notes, this.key) : super(key: key);
     //IntrayTodo({this.keyValue, this.title, this.subtitle});
 
     @override
@@ -20,7 +20,8 @@ class IntrayTodo extends StatelessWidget {
             margin: const EdgeInsets.only(
                 left: 20,
                 right: 20,
-                bottom: 15,
+                bottom: 7.5,
+                top: 7.5
             ),
             decoration: BoxDecoration(
                 color: redMainColor,
@@ -35,27 +36,27 @@ class IntrayTodo extends StatelessWidget {
                 ]
             ),
             child: Row(
-                children: <Widget>[
-                    const Radio(value: true, groupValue: false, onChanged: null),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                            const Padding(padding: EdgeInsets.all(10)),
-                            Text(
-                                title.toString(),
-                                style: singleTaskTitle,
-                            ),
-                            Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                    "$key - $subtitle",
-                                    style: singleTaskSubtitle,
-                                )
-                            ),
-                        ],
-                    )
-                ],
-            ),
+                  children: <Widget>[
+                      const Radio(value: true, groupValue: false, onChanged: null),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                              const Padding(padding: EdgeInsets.all(10)),
+                              Text(
+                                  title.toString(),
+                                  style: singleTaskTitle,
+                              ),
+                              Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                      "$key - $notes",
+                                      style: singleTaskSubtitle,
+                                  )
+                              ),
+                          ],
+                      )
+                  ],
+              ),
         );
     } 
   
