@@ -27,16 +27,19 @@ class _IntrayPageState extends State<IntrayPage> {
 
     return Container(
       color: darkGreyColor,
-      child: /* Theme(
-        data: ThemeData(
-          canvasColor: darkGreyColor,
-        ),
-        child: */ ReorderableListView(
+      child: ReorderableListView(
           proxyDecorator: (child, index, animation) {
             return Material(
               shadowColor: Colors.transparent,
               color: Colors.transparent,
-              child: child,
+              child: ScaleTransition(
+                scale: animation.drive(
+                  Tween(begin: 1.0, end: 1.03).chain(
+                    CurveTween(curve: Curves.linear),
+                  )
+                ),
+                child: child,
+              ),
             );
           },
           padding: const EdgeInsets.only(top: 230),
