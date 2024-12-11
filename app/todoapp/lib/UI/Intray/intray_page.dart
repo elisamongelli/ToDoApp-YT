@@ -35,7 +35,7 @@ class _IntrayPageState extends State<IntrayPage> {
               child: ScaleTransition(
                 scale: animation.drive(
                   Tween(begin: 1.0, end: 1.03).chain(
-                    CurveTween(curve: Curves.linear),
+                    CurveTween(curve: Curves.easeOut),
                   )
                 ),
                 child: child,
@@ -46,7 +46,6 @@ class _IntrayPageState extends State<IntrayPage> {
           onReorder: _onReorder,
           children: taskList,
         ),
-      // ),
     );
   }
 
