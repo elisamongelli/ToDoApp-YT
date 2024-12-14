@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
+import 'package:todoapp/services/database_service.dart';
 import 'models/global.dart';
 
 void main() async {
@@ -22,7 +23,6 @@ void main() async {
     await Firebase.initializeApp();
   }
   
-
   runApp(const MyApp());
 }
 
@@ -37,14 +37,16 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'ToDo App'),
+      home: MyHomePage(title: 'ToDo App'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
   final String title;
+
+  final DatabaseService _databaseService = DatabaseService();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -69,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       color: Colors.orange,
                     ),
-                    IntrayPage(),
+                    const IntrayPage(),
                     Container(
                       color: Colors.lightGreen,
                     ),
