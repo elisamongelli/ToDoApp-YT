@@ -1,11 +1,52 @@
+// ignore_for_file: avoid_print
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
-import 'package:todoapp/models/widgets/intray_todo_widget.dart';
+import 'package:todoapp/services/database_service.dart';
 
+
+/* void main() {
+  _incrementCounter();
+} */
+
+var collection = FirebaseFirestore.instance.collection("todos");
+List<Map<String,dynamic>> items = [];
+bool isLoaded = false;
+
+
+Future _incrementCounter() async {
+  print("Inside incrementCounter");
+  
+  List<Map<String,dynamic>> tempList = [];
+  var data = await collection.get();
+
+  print("Collection = $collection");
+  print("Data = $data");
+
+  data.docs.forEach((item) {
+    tempList.add(item.data());
+  });
+
+
+  print("Temp List = $tempList");
+  
+  items = tempList;
+  isLoaded = true;
+  
+  print("Items alla fine = $items and isLoaded alla fine = $isLoaded");
+
+
+  /* setState(() {
+    items = tempList;
+    isLoaded = true;
+  }); */
+}
 
 class IntrayPage extends StatefulWidget {
   const IntrayPage({super.key});
+
 
   @override
   State<IntrayPage> createState() => _IntrayPageState();
@@ -13,17 +54,28 @@ class IntrayPage extends StatefulWidget {
 
 
 class _IntrayPageState extends State<IntrayPage> {
+  
+
+
 
   late List<Task> taskList = [];
 
 
   _IntrayPageState() {
+    print("IsLoaded = $isLoaded");
+    if(!isLoaded) {
+      print("Sono nell'if di isLoaded");
+      _incrementCounter();
+    }
     taskList = getList();
+    print("Task List = $taskList");
   }
 
   
   @override
   Widget build(BuildContext context) {
+
+    print("Inside IntrayPage class");
 
     return Container(
       color: darkGreyColor,
@@ -62,7 +114,7 @@ class _IntrayPageState extends State<IntrayPage> {
 
   List<Task> getList() {
 
-    for (int i = 0; i < 11; i++) {
+    /* for (int i = 0; i < 11; i++) {
       taskList.add(
         Task(
           "Titolo di prova",
@@ -71,7 +123,9 @@ class _IntrayPageState extends State<IntrayPage> {
           ValueKey(i)
         )
       );
-    }
+    } */
+
+   print("Items = $items");
 
     return taskList;
   }

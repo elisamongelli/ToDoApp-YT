@@ -3,10 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
-import 'package:todoapp/services/database_service.dart';
 import 'models/global.dart';
 
 void main() async {
+
+  print("Inside main method in main.dart");
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -37,16 +38,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'ToDo App'),
+      home: const MyHomePage(title: 'ToDo App'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
   final String title;
-
-  final DatabaseService _databaseService = DatabaseService();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
