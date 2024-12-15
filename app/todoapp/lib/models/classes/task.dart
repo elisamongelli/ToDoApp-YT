@@ -17,7 +17,24 @@ class Task extends StatelessWidget{
 
 
   @override
-    Widget build(BuildContext context) {
-      return IntrayTodo(title, notes, key);
+  Widget build(BuildContext context) {
+    return IntrayTodo(title, notes, key);
+  }
+  
+
+    Task.fromJson(Map<String, Object?> json) : this(
+      json['title']! as String,
+      json['notes']! as String,
+      json['completed']! as bool,
+      json['key'] as Key
+    );
+
+
+    Map<String, Object> toJson() {
+      return {
+        'title': title,
+        'notes': notes,
+        'key': key.toString()
+      };
     }
 }

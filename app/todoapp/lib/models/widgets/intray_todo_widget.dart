@@ -60,21 +60,5 @@ class IntrayTodo extends StatelessWidget {
               ),
         );
     } 
-
-
-    IntrayTodo.fromJson(Map<String, Object?> json) : this(
-      json['title']! as String,
-      json['notes']! as String,
-      json['key'] as Key
-    );
-
-
-    Map<String, Object> toJson() {
-      return {
-        'title': title,
-        'notes': notes,
-        'key': key.toString()
-      };
-    }
   
 }
