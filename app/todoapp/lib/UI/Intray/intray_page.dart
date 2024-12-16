@@ -4,44 +4,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
-import 'package:todoapp/services/database_service.dart';
 
 
-/* void main() {
-  _incrementCounter();
-} */
 
 var collection = FirebaseFirestore.instance.collection("todos");
-List<Map<String,dynamic>> items = [];
+List<Map<String,dynamic>> dbItems = [];
 bool isLoaded = false;
 
 
-Future _incrementCounter() async {
-  print("Inside incrementCounter");
+Future _getDataFromFirebase() async {
   
-  List<Map<String,dynamic>> tempList = [];
+  //List<Map<String,dynamic>> items = [];
   var data = await collection.get();
 
-  print("Collection = $collection");
-  print("Data = $data");
 
   data.docs.forEach((item) {
-    tempList.add(item.data());
+    dbItems.add(item.data());
   });
 
-
-  print("Temp List = $tempList");
   
-  items = tempList;
+  //dbItems = items;
   isLoaded = true;
   
-  print("Items alla fine = $items and isLoaded alla fine = $isLoaded");
-
-
-  /* setState(() {
-    items = tempList;
-    isLoaded = true;
-  }); */
+  print("Items alla fine = $dbItems and isLoaded alla fine = $isLoaded");
 }
 
 class IntrayPage extends StatefulWidget {
@@ -55,27 +40,21 @@ class IntrayPage extends StatefulWidget {
 
 class _IntrayPageState extends State<IntrayPage> {
   
-
-
-
   late List<Task> taskList = [];
 
 
   _IntrayPageState() {
-    print("IsLoaded = $isLoaded");
+
     if(!isLoaded) {
-      print("Sono nell'if di isLoaded");
-      _incrementCounter();
+      _getDataFromFirebase();
     }
-    taskList = getList();
-    print("Task List = $taskList");
+    
+    //taskList = getList();
   }
 
   
   @override
   Widget build(BuildContext context) {
-
-    print("Inside IntrayPage class");
 
     return Container(
       color: darkGreyColor,
@@ -124,8 +103,6 @@ class _IntrayPageState extends State<IntrayPage> {
         )
       );
     } */
-
-   print("Items = $items");
 
     return taskList;
   }
