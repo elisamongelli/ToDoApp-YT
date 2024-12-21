@@ -18,8 +18,9 @@ Future _getDataFromFirebase() async {
   var data = await collection.get();
 
 
-  data.docs.forEach((item) {
-    dbItems.add(item.data());
+  // ignore: avoid_function_literals_in_foreach_calls
+  data.docs.forEach((dbItem) {
+    dbItems.add(dbItem.data());
   });
 
   

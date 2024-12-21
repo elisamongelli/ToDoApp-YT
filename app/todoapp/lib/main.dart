@@ -7,8 +7,6 @@ import 'models/global.dart';
 
 void main() async {
 
-  print("Inside main method in main.dart");
-
   WidgetsFlutterBinding.ensureInitialized();
 
   if(kIsWeb) {
