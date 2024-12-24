@@ -2,12 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_api_availability/google_api_availability.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'models/global.dart';
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  print("GOOGLE API: " + GoogleApiAvailability.instance.checkGooglePlayServicesAvailability().toString());
 
   if(kIsWeb) {
     await Firebase.initializeApp(options: const FirebaseOptions(
