@@ -1,11 +1,16 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
-import 'package:todoapp/models/widgets/intray_todo_widget.dart';
+
+
+
 
 
 class IntrayPage extends StatefulWidget {
   const IntrayPage({super.key});
+
 
   @override
   State<IntrayPage> createState() => _IntrayPageState();
@@ -14,16 +19,12 @@ class IntrayPage extends StatefulWidget {
 
 class _IntrayPageState extends State<IntrayPage> {
 
-  late List<Task> taskList = [];
-
-
-  _IntrayPageState() {
-    taskList = getList();
-  }
-
+  List<Task> taskList = [];
   
   @override
   Widget build(BuildContext context) {
+
+    taskList = getList();
 
     return Container(
       color: darkGreyColor,
@@ -35,7 +36,7 @@ class _IntrayPageState extends State<IntrayPage> {
               child: ScaleTransition(
                 scale: animation.drive(
                   Tween(begin: 1.0, end: 1.03).chain(
-                    CurveTween(curve: Curves.linear),
+                    CurveTween(curve: Curves.easeOut),
                   )
                 ),
                 child: child,
@@ -46,7 +47,6 @@ class _IntrayPageState extends State<IntrayPage> {
           onReorder: _onReorder,
           children: taskList,
         ),
-      // ),
     );
   }
 
