@@ -1,34 +1,10 @@
 // ignore_for_file: avoid_print
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
 
 
-
-var collection = FirebaseFirestore.instance.collection("todos");
-List<Map<String,dynamic>> dbItems = [];
-bool isLoaded = false;
-
-
-Future _getDataFromFirebase() async {
-  
-  //List<Map<String,dynamic>> items = [];
-  var data = await collection.get();
-
-
-  // ignore: avoid_function_literals_in_foreach_calls
-  data.docs.forEach((dbItem) {
-    dbItems.add(dbItem.data());
-  });
-
-  
-  //dbItems = items;
-  isLoaded = true;
-  
-  print("Items alla fine = $dbItems and isLoaded alla fine = $isLoaded");
-}
 
 class IntrayPage extends StatefulWidget {
   const IntrayPage({super.key});
@@ -40,22 +16,13 @@ class IntrayPage extends StatefulWidget {
 
 
 class _IntrayPageState extends State<IntrayPage> {
-  
-  late List<Task> taskList = [];
 
-
-  _IntrayPageState() {
-
-    if(!isLoaded) {
-      _getDataFromFirebase();
-    }
-    
-    //taskList = getList();
-  }
-
+  List<Task> taskList = [];
   
   @override
   Widget build(BuildContext context) {
+
+    taskList = getList();
 
     return Container(
       color: darkGreyColor,
@@ -94,7 +61,7 @@ class _IntrayPageState extends State<IntrayPage> {
 
   List<Task> getList() {
 
-    /* for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 11; i++) {
       taskList.add(
         Task(
           "Titolo di prova",
@@ -103,7 +70,7 @@ class _IntrayPageState extends State<IntrayPage> {
           ValueKey(i)
         )
       );
-    } */
+    }
 
     return taskList;
   }
