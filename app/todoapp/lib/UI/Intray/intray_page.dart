@@ -24,11 +24,11 @@ class _IntrayPageState extends State<IntrayPage> {
 
   _IntrayPageState() {
     taskList = getList();
-    connectToDB();
+    // connectToDB();
   }
 
 
-  void connectToDB() async {
+  /* void connectToDB() async {
     print("==================SONO NEL METODO CONNECT TO DB======================");
     DBConnection = await MySQLConnection.createConnection(
       host: 'INSTANCE', 
@@ -44,7 +44,7 @@ class _IntrayPageState extends State<IntrayPage> {
     );
 
     print('Inserted row id=${result.lastInsertID}');
-  }
+  } */
 
   
   @override
