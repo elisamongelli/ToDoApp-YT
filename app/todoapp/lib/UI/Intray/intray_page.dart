@@ -18,11 +18,13 @@ class IntrayPage extends StatefulWidget {
 class _IntrayPageState extends State<IntrayPage> {
 
   List<Task> taskList = [];
+
+  _IntrayPageState() {
+    taskList = getList();
+  }
   
   @override
   Widget build(BuildContext context) {
-
-    taskList = getList();
 
     return Container(
       color: darkGreyColor,
