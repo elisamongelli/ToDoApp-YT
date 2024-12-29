@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
 import 'package:todoapp/models/global.dart';
+import 'package:mysql_client/mysql_client.dart';
+import 'package:http/http.dart';
 
 
+var DBConnection = null;
 
 class IntrayPage extends StatefulWidget {
-  const IntrayPage({super.key});
+  IntrayPage({super.key});
 
 
   @override
@@ -21,7 +24,28 @@ class _IntrayPageState extends State<IntrayPage> {
 
   _IntrayPageState() {
     taskList = getList();
+    connectToDB();
   }
+
+
+  void connectToDB() async {
+    print("==================SONO NEL METODO CONNECT TO DB======================");
+    DBConnection = await MySQLConnection.createConnection(
+      host: 'INSTANCE', 
+      port: 3306, 
+      userName: 'USER', 
+      password: 'PASSWORD'
+    );
+
+    DBConnection.connect();
+
+    var result = await DBConnection.execute(
+      "INSERT INTO TASKS (ITEM_KEY, USER_ID, ITEMS_ORDER, TITLE, NOTES) VALUES ('[<1>]', 'elisamongelli', 1, 'Titolo di prova', 'Note di prova')"
+    );
+
+    print('Inserted row id=${result.lastInsertID}');
+  }
+
   
   @override
   Widget build(BuildContext context) {
