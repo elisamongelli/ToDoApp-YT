@@ -13,14 +13,16 @@ class User(db.Model):
     # __table_args__ = db.UniqueConstrint('ID', name='pk_users')
 
     ID = db.Column(db.String(), primary_key=True)
+    API_KEY = db.Column(db.String())
     USERNAME = db.Column(db.String())
     PASSWORD = db.Column(db.String())
     EMAIL_ADDRESS = db.Column(db.String())
     FIRST_NAME = db.Column(db.String())
     LAST_NAME = db.Column(db.String())
 
-    def __init__(self, ID, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
+    def __init__(self, ID, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
         self.ID = ID
+        self.API_KEY = API_KEY
         self.USERNAME = USERNAME
         self.PASSWORD = PASSWORD
         self.EMAIL_ADDRESS = EMAIL_ADDRESS
@@ -33,6 +35,7 @@ class User(db.Model):
     def serialize(self):
         return {
             'ID' : self.ID,
+            'API_KEY' : self.API_KEY,
             'USERNAME' : self.USERNAME,
             'PASSWORD' : self.PASSWORD,
             'EMAIL_ADDRESS' : self.EMAIL_ADDRESS,
