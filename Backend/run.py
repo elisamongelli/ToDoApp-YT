@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 
 
 def create_app(config_filename):
@@ -11,9 +12,13 @@ def create_app(config_filename):
     from models import db
     db.init_app(app)
 
+    Migrate(app,db)
+
     return app
 
 
+# export app as Flask CLI object (flask_script deprecated)
+app = create_app("config")
+
 if __name__ == "__main__":
-    app = create_app("config")
     app.run(debug=True)

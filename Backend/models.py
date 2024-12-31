@@ -12,13 +12,13 @@ class User(db.Model):
     __tablename__ = 'USERS'
     # __table_args__ = db.UniqueConstrint('ID', name='pk_users')
 
-    ID = db.Column(db.String(), primary_key=True)
-    API_KEY = db.Column(db.String())
-    USERNAME = db.Column(db.String())
-    PASSWORD = db.Column(db.String())
-    EMAIL_ADDRESS = db.Column(db.String())
-    FIRST_NAME = db.Column(db.String())
-    LAST_NAME = db.Column(db.String())
+    ID = db.Column(db.String(500), primary_key=True)
+    API_KEY = db.Column(db.String(500))
+    USERNAME = db.Column(db.String(500))
+    PASSWORD = db.Column(db.String(50))
+    EMAIL_ADDRESS = db.Column(db.String(500))
+    FIRST_NAME = db.Column(db.String(500))
+    LAST_NAME = db.Column(db.String(500))
 
     def __init__(self, ID, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
         self.ID = ID
@@ -49,10 +49,10 @@ class Task(db.Model):
     __tablename__ = 'TASKS'
     # __table_args__ = tuple(db.UniqueConstrint('ITEM_KEY', 'USER_ID', name='pk_tasks'))
 
-    ITEM_KEY = db.Column(db.String(), primary_key=True)
-    USER_ID = db.Column(db.String(), primary_key=True)
+    ITEM_KEY = db.Column(db.String(50), primary_key=True)
+    USER_ID = db.Column(db.String(500), primary_key=True)
     ITEMS_ORDER = db.Column(db.Integer)
-    TITLE = db.Column(db.String())
+    TITLE = db.Column(db.String(500))
     NOTES = db.Column(db.Text)
     START_DATE = db.Column(db.TIMESTAMP)
     END_DATE = db.Column(db.TIMESTAMP)
