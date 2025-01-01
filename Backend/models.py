@@ -20,6 +20,8 @@ class User(db.Model):
     FIRST_NAME = db.Column(db.String(500))
     LAST_NAME = db.Column(db.String(500))
 
+
+    # User class constructor
     def __init__(self, ID, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
         self.ID = ID
         self.API_KEY = API_KEY
@@ -29,8 +31,10 @@ class User(db.Model):
         self.FIRST_NAME = FIRST_NAME
         self.LAST_NAME = LAST_NAME
     
+    
+    # method called while trying to create a User
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<id {}>'.format(self.ID)
     
     def serialize(self):
         return {
