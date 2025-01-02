@@ -10,10 +10,15 @@ class Signup(Resource):
     def get(self):
 
         users = User.query.all()
-        # users = users.dump(users).data
+
+        # create list of Users to serialize
+        users_list = []
+        for i in range(len(users)):
+            users_list.append(User.serialize(users[i]))
+        
         return {
             "status" : "Success",
-            "data" : users
+            "data" : users_list
         }, 200
     
 
