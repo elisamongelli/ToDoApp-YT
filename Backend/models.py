@@ -12,7 +12,7 @@ class User(db.Model):
     __tablename__ = 'USERS'
     # __table_args__ = db.UniqueConstrint('ID', name='pk_users')
 
-    ID = db.Column(db.String(500), primary_key=True)
+    ID = db.Column(db.Integer, primary_key=True)
     API_KEY = db.Column(db.String(500))
     USERNAME = db.Column(db.String(500))
     PASSWORD = db.Column(db.String(50))
@@ -22,8 +22,8 @@ class User(db.Model):
 
 
     # User class constructor
-    def __init__(self, ID, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
-        self.ID = ID
+    def __init__(self, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
+        # self.ID = ID
         self.API_KEY = API_KEY
         self.USERNAME = USERNAME
         self.PASSWORD = PASSWORD

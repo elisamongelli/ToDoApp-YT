@@ -27,13 +27,14 @@ class Signup(Resource):
     # ===== CREATE A USER =====
     # request payload:
             # {
-            #      "id" : "string",
+            #      "id" : 0,
             #      "username" : "string",
             #      "email" : "string",
             #      "password" : "string",
             #      "firstname" : "string",
             #      "lastname" : "string"
             # }
+    # api_key value is valued inside the following post method
     
     def post(self):
         
@@ -43,7 +44,7 @@ class Signup(Resource):
             return {"message": "No input data provided"}, 400
         
 
-        id = json_request["id"]
+        # id = json_request["id"]
         username = json_request["username"]
         email = json_request["email"]
         password = json_request["password"]
@@ -72,7 +73,7 @@ class Signup(Resource):
         # TODO: modify API_KEY in the JSON PAYLOAD
 
         user = User(
-            ID = id,
+            # ID = id,
             API_KEY = "API_KEY",
             USERNAME = username,
             EMAIL_ADDRESS = email,
