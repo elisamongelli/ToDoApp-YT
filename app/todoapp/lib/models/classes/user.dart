@@ -1,19 +1,19 @@
 class User {
-  int id;
-  String apiKey;
-  String username;
-  String email;
-  String password;
-  String lastname;
-  String firstname;
+  // int id = 0;
+  // String apiKey = '';
+  String username = '';
+  String email = '';
+  String password = '';
+  String lastname = '';
+  String firstname = '';
 
 
-  User (this.id, this.apiKey, this.username, this.email, this.password, this.lastname, this.firstname);
+  User (this.username, this.email, this.password, this.lastname, this.firstname);
 
 
-  User.fromJson(Map<String, dynamic> parsedJson) {
+   User.fromJson(Map<String, dynamic> parsedJson) {
 
-    User user = User(
+    /* User user = User(
       parsedJson['id'],
       parsedJson['apiKey'], 
       parsedJson['username'], 
@@ -21,7 +21,15 @@ class User {
       parsedJson['password'], 
       parsedJson['lastname'], 
       parsedJson['firstname']
-    );
+    ); */
+
+    // id = parsedJson['id'];
+    // apiKey = parsedJson['apiKey'];
+    // username = parsedJson['username'];
+    // email = parsedJson['email'];
+    // password = parsedJson['password'];
+    // lastname = parsedJson['lastname'];
+    // firstname = parsedJson['firstname'];
 
     /* print(parsedJson['results'].length);
     _page = parsedJson['page'];
