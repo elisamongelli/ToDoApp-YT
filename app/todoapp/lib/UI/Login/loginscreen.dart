@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../models/global.dart';
+import 'package:todoapp/models/classes/user.dart';
+import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,9 +15,16 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text("Login Page Flutter Firebase"),
       ),
-      body: const Center(
-        child: Text('Login Page Flutter Firebase  Content'),
-      ),
+      body: Center(
+        child: FloatingActionButton(
+          backgroundColor: Colors.amber,
+          foregroundColor: Colors.white,
+          shape: const CircleBorder(),
+          onPressed:() {
+            bloc.signupUser("imateapot6", "teapot6@gmail.com", "teapot", "Elisa", "Mongelli");
+          },
+        ),
+      )
     );
   }
 }

@@ -5,8 +5,6 @@ import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
 import 'package:http/http.dart' as http;
 import 'models/global.dart';
-import 'package:todoapp/models/classes/user.dart';
-import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,8 +26,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      // home: LoginPage(),
-      home: const MyHomePage(title: 'ToDo App'),
+      home: LoginPage(),
+      // home: const MyHomePage(title: 'ToDo App'),
       /* home: FutureBuilder(
         future: getUser(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -102,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    bloc.signupUser("imateapot5", "teapot5@gmail.com", "teapot", "Elisa", "Mongelli");
+    // bloc.signupUser("imateapot5", "teapot5@gmail.com", "teapot", "Elisa", "Mongelli");
     
     return MaterialApp(
       color: Colors.yellow,
