@@ -1,6 +1,9 @@
 from flask import request
 from flask_restful import Resource
 from models import db, User
+import random
+import string
+
 
 
 class Signup(Resource):
@@ -27,7 +30,6 @@ class Signup(Resource):
     # ===== CREATE A USER =====
     # request payload:
             # {
-            #      "id" : 0,
             #      "username" : "string",
             #      "email" : "string",
             #      "password" : "string",
@@ -69,12 +71,21 @@ class Signup(Resource):
             }, 400
         
 
+        api_key_length = 50
 
-        # TODO: modify API_KEY in the JSON PAYLOAD
+        # generate new random API_KEY and check if another user has the same one
+        api_key = self.generate_key(api_key_length)
+        user_api_key = User.query.filter_by(API_KEY=api_key).first()
+
+        # generate new random API_KEY for the user until the API_KEY does not exists in the db
+        while user_api_key:
+            api_key = self.generate_key(api_key_length)
+            user_api_key = User.query.filter_by(API_KEY=api_key).first()
+
+
 
         user = User(
-            # ID = id,
-            API_KEY = "API_KEY",
+            API_KEY = api_key,
             USERNAME = username,
             EMAIL_ADDRESS = email,
             PASSWORD = password,
@@ -92,3 +103,7 @@ class Signup(Resource):
             "status" : "Success",
             "data" : User.serialize(user)
         }, 200
+    
+    
+    def generate_key(self, length):
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(length))

@@ -23,7 +23,6 @@ class User(db.Model):
 
     # User class constructor
     def __init__(self, API_KEY, USERNAME, PASSWORD, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME):
-        # self.ID = ID
         self.API_KEY = API_KEY
         self.USERNAME = USERNAME
         self.PASSWORD = PASSWORD

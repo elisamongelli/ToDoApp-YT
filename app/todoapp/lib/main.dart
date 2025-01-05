@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
+import 'package:todoapp/UI/Login/loginscreen.dart';
+import 'package:http/http.dart' as http;
 import 'models/global.dart';
 
 void main() {
@@ -12,14 +15,76 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print("\n\n\nSONO IN BUILD E CHIAMO GET USER\n\n");
+    getUser();
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ToDo Application',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'ToDo App'),
+      home: LoginPage(),
+      // home: const MyHomePage(title: 'ToDo App'),
+      /* home: FutureBuilder(
+        future: getUser(),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null) {
+            print('project snapshot data is: ${snapshot.data}');
+            return Container();
+          }
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: <Widget>[
+                  // Widget to display the list of project
+                ],
+              );
+            },
+          );
+        },
+      ), */
     );
+  }
+
+
+  saveApiKey() async {
+    // await prefs.setString('API_KEY', stored_apiKey);
+  }
+
+
+  Future getUser() async {
+    // TODO: check if there is an api_key on device
+    // if no api_key --> login screen
+    // if api_key --> app screen
+
+    var result = await http.get(Uri.parse('http://127.0.0.1:5000/api/signup'));
+    print(result.body);
+    print("\n\n\n");
+    return result;
+    /* String apiKey = await getApiKey();
+    if (apiKey.length == 0) {
+      // user is NOT logged in --> login screen
+    } else {
+      // user is logged in --> home screen with GET request
+    } */
+  }
+
+  // retrieve stored API KEY if present
+  Future<String> getApiKey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String storedApiKey;
+    try {
+      storedApiKey = prefs.getString('API_KEY').toString();
+    } catch (Exception) {
+      storedApiKey = "";
+    }
+
+    return storedApiKey;
   }
 }
 
