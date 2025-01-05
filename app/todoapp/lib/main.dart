@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print("\n\n\nSONO IN BUILD E CHIAMO GET USER\n\n");
+    print("SONO IN BUILD E CHIAMO GET USER");
     getUser();
 
     return MaterialApp(
@@ -51,9 +51,9 @@ class MyApp extends StatelessWidget {
   }
 
 
-  saveApiKey() async {
+  /* saveApiKey() async {
     // await prefs.setString('API_KEY', stored_apiKey);
-  }
+  } */
 
 
   Future getUser() async {
@@ -61,9 +61,8 @@ class MyApp extends StatelessWidget {
     // if no api_key --> login screen
     // if api_key --> app screen
 
-    var result = await http.get(Uri.parse('http://127.0.0.1:5000/api/signup'));
-    print(result.body);
-    print("\n\n\n");
+    var result = await http.get(Uri.parse('http://10.0.2.2:5000/api/signup'));
+    print("IL RISULTATO DELLA CHIAMATA E': " + result.body.toString());
     return result;
     /* String apiKey = await getApiKey();
     if (apiKey.length == 0) {
@@ -74,7 +73,7 @@ class MyApp extends StatelessWidget {
   }
 
   // retrieve stored API KEY if present
-  Future<String> getApiKey() async {
+  /* Future<String> getApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String storedApiKey;
@@ -85,7 +84,7 @@ class MyApp extends StatelessWidget {
     }
 
     return storedApiKey;
-  }
+  } */
 }
 
 class MyHomePage extends StatefulWidget {
