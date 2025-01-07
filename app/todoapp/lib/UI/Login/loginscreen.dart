@@ -16,12 +16,13 @@ class _LoginPageState extends State<LoginPage> {
         title: const Text("Login Page Flutter Firebase"),
       ),
       body: Center(
-        child: FloatingActionButton(
+        child: FloatingActionButton.extended(
+          label: const Text("Sign up"),
           backgroundColor: Colors.amber,
           foregroundColor: Colors.white,
-          shape: const CircleBorder(),
+          shape: const OvalBorder(),
           onPressed:() {
-            bloc.signupUser("imateapot6", "teapot6@gmail.com", "teapot", "Elisa", "Mongelli");
+            bloc.signupUser("imateapot8", "teapot8@gmail.com", "teapot", "Elisa", "Mongelli");
           },
         ),
       )
