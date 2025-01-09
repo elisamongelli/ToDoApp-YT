@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/classes/task.dart';
-import 'package:todoapp/models/global.dart';
+import 'package:todoapp/models/assets/global.dart';
 import 'package:mysql_client/mysql_client.dart';
 import 'package:http/http.dart';
 

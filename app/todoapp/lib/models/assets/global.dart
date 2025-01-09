@@ -25,3 +25,19 @@ TextStyle singleTaskSubtitle = TextStyle(
   color: darkGreyColor,
   fontSize: 15
 );
+
+
+TextStyle loginScreenTitle = TextStyle(
+  fontFamily: 'Playwrite',
+  fontWeight: FontWeight.normal,
+  color: redMainColor,
+  fontSize: 120
+);
+
+TextStyle loginScreenSubtitle = TextStyle(
+  fontFamily: 'Playwrite',
+  fontWeight: FontWeight.normal,
+  color: darkGreyColor,
+  fontSize: 25
+);
+

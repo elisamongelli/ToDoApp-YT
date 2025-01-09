@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/models/global.dart';
+import 'package:todoapp/models/assets/global.dart';
 
 
 class IntrayTodo extends StatelessWidget {

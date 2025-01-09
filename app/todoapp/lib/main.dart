@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
 import 'package:http/http.dart' as http;
-import 'models/global.dart';
+import 'models/assets/global.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print("SONO IN BUILD E CHIAMO GET USER");
+    // print("SONO IN BUILD E CHIAMO GET USER");
     getUser();
 
     return MaterialApp(
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
     // if api_key --> app screen
 
     var result = await http.get(Uri.parse('http://10.0.2.2:5000/api/signup'));
-    print("IL RISULTATO DELLA CHIAMATA E': " + result.body.toString());
+    // print("IL RISULTATO DELLA CHIAMATA E': " + result.body.toString());
     return result;
     /* String apiKey = await getApiKey();
     if (apiKey.length == 0) {
@@ -71,6 +71,8 @@ class MyApp extends StatelessWidget {
       // user is logged in --> home screen with GET request
     } */
   }
+
+
 
   // retrieve stored API KEY if present
   /* Future<String> getApiKey() async {
