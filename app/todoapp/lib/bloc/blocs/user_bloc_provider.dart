@@ -8,7 +8,7 @@ class UserBloc {
 
   Stream<User> get getUser => _userGetter.stream;
 
-  signupUser(
+  Future<User> signupUser(
     String username,
     String email,
     String password,
@@ -17,6 +17,8 @@ class UserBloc {
   ) async {
     User user = await _repository.signupUser(username, email, password, firstname, lastname);
     _userGetter.sink.add(user);
+
+    return user;
   }
 
   dispose() {

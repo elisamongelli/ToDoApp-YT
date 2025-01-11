@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // print("SONO IN BUILD E CHIAMO GET USER");
     getUser();
 
     return MaterialApp(
