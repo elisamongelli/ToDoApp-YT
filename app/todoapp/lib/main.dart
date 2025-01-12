@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +25,22 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: FutureBuilder(
+        future: getApiKey(), 
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            
+            String? apiKey = snapshot.data;
+            return apiKey == null || apiKey != "Api Key non salvata" ? MyHomePage(title: "Task List") : LoginPage();
+
+          } else {
+            
+            return Center(child: CircularProgressIndicator());
+          }
+        }
+      ),
+      // home: LoginPage(),
       // home: const MyHomePage(title: 'ToDo App'),
       /* home: FutureBuilder(
         future: getUser(),
@@ -50,9 +65,14 @@ class MyApp extends StatelessWidget {
   }
 
 
-  /* saveApiKey() async {
-    // await prefs.setString('API_KEY', stored_apiKey);
-  } */
+
+  Future<String> getApiKey() async {
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String localApiKey = prefs.getString('Api_Token') ?? 'Api Key non salvata';
+    
+    return localApiKey;
+  }
 
 
   Future getUser() async {
@@ -63,6 +83,7 @@ class MyApp extends StatelessWidget {
     var result = await http.get(Uri.parse('http://10.0.2.2:5000/api/signup'));
     // print("IL RISULTATO DELLA CHIAMATA E': " + result.body.toString());
     return result;
+    
     /* String apiKey = await getApiKey();
     if (apiKey.length == 0) {
       // user is NOT logged in --> login screen
@@ -70,22 +91,6 @@ class MyApp extends StatelessWidget {
       // user is logged in --> home screen with GET request
     } */
   }
-
-
-
-  // retrieve stored API KEY if present
-  /* Future<String> getApiKey() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String storedApiKey;
-    try {
-      storedApiKey = prefs.getString('API_KEY').toString();
-    } catch (Exception) {
-      storedApiKey = "";
-    }
-
-    return storedApiKey;
-  } */
 }
 
 class MyHomePage extends StatefulWidget {
@@ -100,8 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
   
   @override
   Widget build(BuildContext context) {
-
-    // bloc.signupUser("imateapot5", "teapot5@gmail.com", "teapot", "Elisa", "Mongelli");
     
     return MaterialApp(
       color: Colors.yellow,
