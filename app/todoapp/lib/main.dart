@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             
             String? apiKey = snapshot.data;
-            return apiKey == null || apiKey != "Api Key non salvata" ? MyHomePage(title: "Task List") : LoginPage();
+            return apiKey == null || apiKey != "Api Key not stored" ? MyHomePage(title: "Task List") : LoginPage();
 
           } else {
             
@@ -42,25 +44,6 @@ class MyApp extends StatelessWidget {
       ),
       // home: LoginPage(),
       // home: const MyHomePage(title: 'ToDo App'),
-      /* home: FutureBuilder(
-        future: getUser(),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          if (snapshot.connectionState == ConnectionState.none && snapshot.hasData == null) {
-            print('project snapshot data is: ${snapshot.data}');
-            return Container();
-          }
-          return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: <Widget>[
-                  // Widget to display the list of project
-                ],
-              );
-            },
-          );
-        },
-      ), */
     );
   }
 
@@ -69,7 +52,7 @@ class MyApp extends StatelessWidget {
   Future<String> getApiKey() async {
     
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String localApiKey = prefs.getString('Api_Token') ?? 'Api Key non salvata';
+    String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
     
     return localApiKey;
   }
@@ -123,6 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     IntrayPage(),
                     Container(
                       color: Colors.lightGreen,
+                      child: IconButton(
+                        onPressed: () {
+                          deleteApiKey();
+                        },
+                        icon: Icon(CupertinoIcons.delete)
+                      ),
                     ),
                   ],
                 ),
@@ -198,5 +187,17 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+
+  Future<void> deleteApiKey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String apiKey = "Api Key not stored";
+
+    Map<String,String> apiKeyJson = {
+      "API_KEY": apiKey
+    };
+
+    prefs.setString('Api_Token', json.encode(apiKeyJson));
   }
 }

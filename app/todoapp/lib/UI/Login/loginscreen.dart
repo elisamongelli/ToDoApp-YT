@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/main.dart';
 import '../../models/assets/global.dart';
 import 'package:todoapp/models/classes/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +110,7 @@ class LoginPageState extends State<LoginPage> {
     String localApiKey;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    localApiKey = prefs.getString('Api_Token') ?? 'Api Key non salvata';
+    localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
 
     return localApiKey;
   }
