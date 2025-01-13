@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     getUser();
 
     return MaterialApp(
@@ -28,35 +27,30 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: FutureBuilder(
-        future: getApiKey(), 
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-
-          if (snapshot.connectionState == ConnectionState.done) {
-            
-            String? apiKey = snapshot.data;
-            return apiKey == null || apiKey != "Api Key not stored" ? MyHomePage(title: "Task List") : LoginPage();
-
-          } else {
-            
-            return Center(child: CircularProgressIndicator());
-          }
-        }
-      ),
+          future: getApiKey(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              String? apiKey = snapshot.data.toString();
+              
+              return apiKey == "null" ||
+                      apiKey != '{"API_KEY":"Api Key not stored"}'
+                  ? MyHomePage(title: "Task List")
+                  : LoginPage();
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
       // home: LoginPage(),
       // home: const MyHomePage(title: 'ToDo App'),
     );
   }
 
-
-
   Future<String> getApiKey() async {
-    
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
-    
+
     return localApiKey;
   }
-
 
   Future getUser() async {
     // TODO: check if there is an api_key on device
@@ -66,7 +60,7 @@ class MyApp extends StatelessWidget {
     var result = await http.get(Uri.parse('http://10.0.2.2:5000/api/signup'));
     // print("IL RISULTATO DELLA CHIAMATA E': " + result.body.toString());
     return result;
-    
+
     /* String apiKey = await getApiKey();
     if (apiKey.length == 0) {
       // user is NOT logged in --> login screen
@@ -85,10 +79,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       color: Colors.yellow,
       home: SafeArea(
@@ -96,37 +88,31 @@ class _MyHomePageState extends State<MyHomePage> {
           length: 3,
           initialIndex: 1,
           child: Scaffold(
-            body: Stack(
-              children: <Widget>[
-                TabBarView(
-                  children: [
-                    Container(
-                      color: Colors.orange,
-                    ),
-                    IntrayPage(),
-                    Container(
-                      color: Colors.lightGreen,
-                      child: IconButton(
+            body: Stack(children: <Widget>[
+              TabBarView(
+                children: [
+                  Container(
+                    color: Colors.orange,
+                  ),
+                  IntrayPage(),
+                  Container(
+                    color: Colors.lightGreen,
+                    child: IconButton(
                         onPressed: () {
                           deleteApiKey();
                         },
-                        icon: Icon(CupertinoIcons.delete)
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                    left: 30
+                        icon: Icon(CupertinoIcons.delete)),
                   ),
+                ],
+              ),
+              Container(
+                  padding: const EdgeInsets.only(left: 30),
                   height: 175,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50)
-                    )
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -136,31 +122,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Container(),
                     ],
-                  )
+                  )),
+              Container(
+                height: 70,
+                width: 70,
+                margin: EdgeInsets.only(
+                  top: 140,
+                  left: (MediaQuery.of(context).size.width * 0.5) - 35,
                 ),
-                Container(
-                  height: 70,
-                  width: 70,
-                  margin: EdgeInsets.only(
-                    top: 140,
-                    left: (MediaQuery.of(context).size.width * 0.5) - 35,
+                child: FloatingActionButton(
+                  backgroundColor: redMainColor,
+                  foregroundColor: Colors.white,
+                  shape: const CircleBorder(),
+                  onPressed: () {},
+                  child: const Icon(
+                    CupertinoIcons.add,
+                    size: 50,
+                    color: Colors.white,
                   ),
-                  child: FloatingActionButton(
-                    backgroundColor: redMainColor,
-                    foregroundColor: Colors.white,
-                    shape: const CircleBorder(),
-                    onPressed:() {
-                      
-                    },
-                    child: const Icon(
-                      CupertinoIcons.add, 
-                      size: 50, 
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-              ] 
-            ),
+                ),
+              )
+            ]),
             appBar: AppBar(
               title: TabBar(
                 tabs: const [
@@ -189,15 +171,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Future<void> deleteApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String apiKey = "Api Key not stored";
-
-    Map<String,String> apiKeyJson = {
-      "API_KEY": apiKey
-    };
-
-    prefs.setString('Api_Token', json.encode(apiKeyJson));
+    prefs.remove('Api_Token');
   }
 }

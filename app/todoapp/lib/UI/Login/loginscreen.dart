@@ -84,15 +84,17 @@ class LoginPageState extends State<LoginPage> {
                           passwordController.text,
                           firstNameController.text,
                           lastNameController.text
-                        );
+                        ).then((_) {
+                          widget.redirectHomePage();
+                        });
                       }
 
-                      if (user != null) {
+                      /* if (user != null) {
                         String savedApiKey = await getApiKey();
                         print("User is not empty. Its apikey is " + savedApiKey);
 
                         //TODO : if is not empty --> redirect to HOMEPAGE
-                      }
+                      } */
                     },
                     child: Text("Sign up!"),
                   )
