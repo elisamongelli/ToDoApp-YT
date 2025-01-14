@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/main.dart';
 import '../../models/assets/global.dart';
-import 'package:todoapp/models/classes/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
+
 class LoginPage extends StatefulWidget {
 
-  const LoginPage({super.key});
+  // final VoidCallback redirectHomePage;
+  final Function() redirectHomePage;
+
+  const LoginPage({super.key, required this.redirectHomePage});
 
   @override
   LoginPageState createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
+  
   TextEditingController emailController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -22,9 +25,6 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    User? user;
-    
 
     return Scaffold(
       body: Center(
@@ -78,7 +78,7 @@ class LoginPageState extends State<LoginPage> {
                       if (usernameController.text.isNotEmpty && 
                           passwordController.text.isNotEmpty &&
                           emailController.text.isNotEmpty) {
-                        user = await bloc.signupUser(
+                        await bloc.signupUser(
                           usernameController.text,
                           emailController.text,
                           passwordController.text,
@@ -88,13 +88,6 @@ class LoginPageState extends State<LoginPage> {
                           widget.redirectHomePage();
                         });
                       }
-
-                      /* if (user != null) {
-                        String savedApiKey = await getApiKey();
-                        print("User is not empty. Its apikey is " + savedApiKey);
-
-                        //TODO : if is not empty --> redirect to HOMEPAGE
-                      } */
                     },
                     child: Text("Sign up!"),
                   )

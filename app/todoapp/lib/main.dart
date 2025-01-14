@@ -13,10 +13,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     getUser();
 
     return MaterialApp(
@@ -26,31 +28,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: FutureBuilder(
-          future: getApiKey(),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              String? apiKey = snapshot.data.toString();
-              
-              return apiKey == "null" ||
-                      apiKey != '{"API_KEY":"Api Key not stored"}'
-                  ? MyHomePage(title: "Task List")
-                  : LoginPage();
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+      home: MyHomePage()
       // home: LoginPage(),
       // home: const MyHomePage(title: 'ToDo App'),
     );
   }
 
-  Future<String> getApiKey() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
 
-    return localApiKey;
-  }
 
   Future getUser() async {
     // TODO: check if there is an api_key on device
@@ -70,17 +54,48 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getApiKey(),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          String? apiKey = snapshot.data.toString();
+
+          print("Api key nel metodo build = " + apiKey.toString());
+          
+          return apiKey != null &&
+                  apiKey != "Api Key not stored"
+              ? getMyHomePageLayout()
+              : LoginPage(redirectHomePage: redirectHomePage);
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      }
+    );
+  }
+
+
+  void redirectHomePage() {
+    setState(() {
+      build(context);
+    });
+  }
+
+
+  getMyHomePageLayout() {
     return MaterialApp(
       color: Colors.yellow,
       home: SafeArea(
@@ -171,8 +186,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+  Future<String> getApiKey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
+
+    print("Local api key = " + localApiKey);
+
+    return localApiKey;
+  }
+
   Future<void> deleteApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('Api_Token');
+
+    print("Local api key = " + prefs.getString('Api_Token').toString());
+
+    await prefs.remove('Api_Token');
+
+    print("Local api key = " + prefs.getString('Api_Token').toString());
+
+    setState(() {
+      build(context);
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
   }
 }
