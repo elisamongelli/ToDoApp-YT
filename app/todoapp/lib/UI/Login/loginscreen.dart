@@ -16,6 +16,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+
+  bool _signupResourceBlocked = false;
   
   TextEditingController emailController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -74,10 +76,13 @@ class LoginPageState extends State<LoginPage> {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
+
+                      _signupResourceBlocked = true;
                       
                       if (usernameController.text.isNotEmpty && 
                           passwordController.text.isNotEmpty &&
                           emailController.text.isNotEmpty) {
+                            print("Sto registrando l'utente " + usernameController.text);
                         await bloc.signupUser(
                           usernameController.text,
                           emailController.text,
@@ -85,6 +90,12 @@ class LoginPageState extends State<LoginPage> {
                           firstNameController.text,
                           lastNameController.text
                         ).then((_) {
+                          _signupResourceBlocked = false;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Successfully signed up!"))
+                          );
+
                           widget.redirectHomePage();
                         });
                       }
@@ -101,12 +112,12 @@ class LoginPageState extends State<LoginPage> {
   }
 
 
-  Future<String> getApiKey() async {
+  /* Future<String> getApiKey() async {
     String localApiKey;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
 
     return localApiKey;
-  }
+  } */
 }

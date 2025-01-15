@@ -66,22 +66,44 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String? globalApiKey;
+  late Future<void> _initApiKey;
+
+
+
+  @override
+  void initState() {
+    print("Sono in initState prima della super");
+    super.initState();
+    print("Sono in initState dopo la super");
+    _initApiKey = _initializeApiKey();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getApiKey(),
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          String? apiKey = snapshot.data.toString();
+      future: _initApiKey,
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
 
-          print("Api key nel metodo build = " + apiKey.toString());
+        if (snapshot.connectionState == ConnectionState.done) {
+          // String? apiKey = snapshot.data.toString();
+
+          // print("Api key nel metodo build = " + apiKey.toString());
+
+          print("Sono nel builder di FutureBuilder e sto per restituire " + globalApiKey.toString());
           
-          return apiKey != null &&
-                  apiKey != "Api Key not stored"
-              ? getMyHomePageLayout()
+          return globalApiKey != null &&
+                  globalApiKey != "Api Key not stored"
+              ? getHomePageLayout()
               : LoginPage(redirectHomePage: redirectHomePage);
+        
         } else {
+
+          print("Sto mostrando il CircularProgressIndicator");
+        
           return Center(child: CircularProgressIndicator());
+        
         }
       }
     );
@@ -89,13 +111,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void redirectHomePage() {
+    print("Sono nel metodo redirectHomePage");
     setState(() {
-      build(context);
+      _initApiKey = _initializeApiKey();
+      // build(context);
     });
   }
 
 
-  getMyHomePageLayout() {
+  getHomePageLayout() {
+    
+    print("Sono nel metodo getHomePageLayout");
+
     return MaterialApp(
       color: Colors.yellow,
       home: SafeArea(
@@ -187,32 +214,39 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+
+  Future<void> _initializeApiKey() async {
+    print("Sono nel metodo _initializeApiKey");
+    globalApiKey = await getApiKey();
+  }
+
+
   Future<String> getApiKey() async {
+
+    // nascondere la tastiera virtuale quando si passa dal logout alla schermata di registrazione
+    FocusScope.of(context).unfocus();
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
 
-    print("Local api key = " + localApiKey);
+    print("Local api key di getApiKey = " + localApiKey);
 
     return localApiKey;
   }
 
+
   Future<void> deleteApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print("Local api key = " + prefs.getString('Api_Token').toString());
+    print("Local api key di deleteApiKey 1 = " + prefs.getString('Api_Token').toString());
 
     await prefs.remove('Api_Token');
 
-    print("Local api key = " + prefs.getString('Api_Token').toString());
+    print("Local api key di deleteApiKey 2 = " + prefs.getString('Api_Token').toString());
 
     setState(() {
-      build(context);
+      globalApiKey = null;
+      // build(context);
     });
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
   }
 }
