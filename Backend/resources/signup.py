@@ -45,6 +45,8 @@ class Signup(Resource):
         if not json_request:
             return {"message": "No input data provided"}, 400
         
+        print("SONO NEL METODO POST DI SIGNUP")
+        
 
         # id = json_request["id"]
         username = json_request["username"]

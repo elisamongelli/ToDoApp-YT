@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../models/assets/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
@@ -27,6 +28,9 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    print("SONO NEL BUILD DI LOGIN SCREEN");
 
     return Scaffold(
       body: Center(
@@ -82,22 +86,25 @@ class LoginPageState extends State<LoginPage> {
                       if (usernameController.text.isNotEmpty && 
                           passwordController.text.isNotEmpty &&
                           emailController.text.isNotEmpty) {
-                            print("Sto registrando l'utente " + usernameController.text);
-                        await bloc.signupUser(
-                          usernameController.text,
-                          emailController.text,
-                          passwordController.text,
-                          firstNameController.text,
-                          lastNameController.text
-                        ).then((_) {
-                          _signupResourceBlocked = false;
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Successfully signed up!"))
-                          );
+                          await bloc.signupUser(
+                            usernameController.text,
+                            emailController.text,
+                            passwordController.text,
+                            firstNameController.text,
+                            lastNameController.text
+                          ).then((_) {
+                            _signupResourceBlocked = false;
 
-                          widget.redirectHomePage();
-                        });
+                            Fluttertoast.showToast(msg: "Successfully signed up!");
+
+                            widget.redirectHomePage();
+                          });
+
+                      } else {
+
+                        Fluttertoast.showToast(msg: "Required fields missing");
+                      
                       }
                     },
                     child: Text("Sign up!"),
@@ -110,14 +117,4 @@ class LoginPageState extends State<LoginPage> {
       )
     );
   }
-
-
-  /* Future<String> getApiKey() async {
-    String localApiKey;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
-
-    return localApiKey;
-  } */
 }

@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
-import 'package:http/http.dart' as http;
 import 'models/assets/global.dart';
 
 void main() {
@@ -19,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    getUser();
+    // getUser();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -36,7 +33,7 @@ class MyApp extends StatelessWidget {
 
 
 
-  Future getUser() async {
+  /* Future getUser() async {
     // TODO: check if there is an api_key on device
     // if no api_key --> login screen
     // if api_key --> app screen
@@ -51,7 +48,7 @@ class MyApp extends StatelessWidget {
     } else {
       // user is logged in --> home screen with GET request
     } */
-  }
+  } */
 }
 
 
@@ -73,9 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    print("Sono in initState prima della super");
     super.initState();
-    print("Sono in initState dopo la super");
     _initApiKey = _initializeApiKey();
   }
 
@@ -90,8 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
           // String? apiKey = snapshot.data.toString();
 
           // print("Api key nel metodo build = " + apiKey.toString());
-
-          print("Sono nel builder di FutureBuilder e sto per restituire " + globalApiKey.toString());
           
           return globalApiKey != null &&
                   globalApiKey != "Api Key not stored"
@@ -99,8 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
               : LoginPage(redirectHomePage: redirectHomePage);
         
         } else {
-
-          print("Sto mostrando il CircularProgressIndicator");
         
           return Center(child: CircularProgressIndicator());
         
@@ -111,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   void redirectHomePage() {
-    print("Sono nel metodo redirectHomePage");
     setState(() {
       _initApiKey = _initializeApiKey();
       // build(context);
@@ -120,8 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   getHomePageLayout() {
-    
-    print("Sono nel metodo getHomePageLayout");
 
     return MaterialApp(
       color: Colors.yellow,
@@ -216,7 +204,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
   Future<void> _initializeApiKey() async {
-    print("Sono nel metodo _initializeApiKey");
     globalApiKey = await getApiKey();
   }
 
@@ -229,8 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String localApiKey = prefs.getString('Api_Token') ?? 'Api Key not stored';
 
-    print("Local api key di getApiKey = " + localApiKey);
-
     return localApiKey;
   }
 
@@ -238,11 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> deleteApiKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    print("Local api key di deleteApiKey 1 = " + prefs.getString('Api_Token').toString());
-
     await prefs.remove('Api_Token');
-
-    print("Local api key di deleteApiKey 2 = " + prefs.getString('Api_Token').toString());
 
     setState(() {
       globalApiKey = null;

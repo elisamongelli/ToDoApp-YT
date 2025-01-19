@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' show Client;
 import 'dart:convert';
 import 'package:todoapp/models/classes/user.dart';
@@ -30,6 +31,7 @@ class ApiProvider {
       })
     );
 
+
     if (response.statusCode == 200) {
 
       await saveApiKey(response.body);
@@ -39,8 +41,17 @@ class ApiProvider {
       
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load user');
+      String errorMessage = getErrorMessage(response.body);
+      Fluttertoast.showToast(msg: errorMessage);
+
+      throw Exception(getErrorMessage(response.body));
     }
+  }
+
+
+  String getErrorMessage(String body) {
+    Map<String,dynamic> response = json.decode(body);
+    return response['message'];
   }
 
 
