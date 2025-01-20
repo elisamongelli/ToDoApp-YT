@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
+import 'package:http/http.dart' as http;
 import 'models/assets/global.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    // getUser();
+    getUser();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
 
 
 
-  /* Future getUser() async {
+  Future getUser() async {
     // TODO: check if there is an api_key on device
     // if no api_key --> login screen
     // if api_key --> app screen
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
     } else {
       // user is logged in --> home screen with GET request
     } */
-  } */
+  }
 }
 
 
