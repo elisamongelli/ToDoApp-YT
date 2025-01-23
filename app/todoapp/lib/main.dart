@@ -137,23 +137,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Container(
-                  padding: const EdgeInsets.only(left: 30),
-                  height: 175,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Task List",
-                        style: taskListTitleStyle,
-                      ),
-                      Container(),
-                    ],
-                  )),
+                padding: const EdgeInsets.only(left: 30),
+                height: 175,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Task List",
+                      style: taskListTitleStyle,
+                    ),
+                    Container(),
+                  ],
+                )
+              ),
               Container(
                 height: 70,
                 width: 70,

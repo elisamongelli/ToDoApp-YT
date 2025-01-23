@@ -31,15 +31,33 @@ class LoginPageState extends State<LoginPage> {
     
 
     return Scaffold(
-      body: Center(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.only(top: 20),
+      body: Container(
+        color: lightGreyColor,
+        child: Column(
+          children: <Widget>[
+            Container(
+              // padding: const EdgeInsets.only(left: 30),
+              padding: const EdgeInsets.only(top: 60),
+              height: 320,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50)
+                )
+              ),
               child: Column(
-                children: <Widget>[
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Text("Hi!", style: loginScreenTitle),
                   Text("Ready to get productive?", style: loginScreenSubtitle),
+                  Container(),
+                ],
+              )
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(
                       top: 60, 
@@ -78,13 +96,13 @@ class LoginPageState extends State<LoginPage> {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
-
+        
                       _signupResourceBlocked = true;
                       
                       if (usernameController.text.isNotEmpty && 
                           passwordController.text.isNotEmpty &&
                           emailController.text.isNotEmpty) {
-
+        
                           await bloc.signupUser(
                             usernameController.text,
                             emailController.text,
@@ -93,14 +111,14 @@ class LoginPageState extends State<LoginPage> {
                             lastNameController.text
                           ).then((_) {
                             _signupResourceBlocked = false;
-
+        
                             Fluttertoast.showToast(msg: "Successfully signed up!");
-
+        
                             widget.redirectHomePage();
                           });
-
+        
                       } else {
-
+        
                         Fluttertoast.showToast(msg: "Required fields missing");
                       
                       }
@@ -109,10 +127,10 @@ class LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
-            ),
-          ),
-        )
-      )
+            )
+          ],
+        ),
+      ),
     );
   }
 }
