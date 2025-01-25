@@ -27,9 +27,22 @@ class LoginPage extends StatefulWidget {
   LoginPageState createState() => LoginPageState();
 }
 
+
+
 class LoginPageState extends State<LoginPage> {
 
   bool _signupResourceBlocked = false;
+
+  late FToast fToast;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    fToast = FToast();
+    fToast.init(context);
+  }
 
 
   @override
@@ -44,7 +57,8 @@ class LoginPageState extends State<LoginPage> {
     
     loginUsernameEmailController = TextEditingController();
     loginPasswordController = TextEditingController();
-    
+
+
 
     return DefaultTabController(
       length: 2,
@@ -114,11 +128,9 @@ class LoginPageState extends State<LoginPage> {
                                   foregroundColor: Colors.white,
                                 ),
                                 onPressed: () async {
-                          
-                                  Fluttertoast.showToast(
-                                    msg: "toast test",
-                                    toastLength: Toast.LENGTH_SHORT
-                                  );
+
+                                  showCustomToast("Successfully logged in!", true);
+                                  
                                 },
                                 child: Text("Login!"),
                               )
@@ -184,6 +196,49 @@ class LoginPageState extends State<LoginPage> {
           ]
         ),
       ),
+    );
+  }
+
+
+
+  void showCustomToast(String message, bool success) {
+    Widget customToast = Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 24.0,
+        vertical: 12.0
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: darkGreyColor
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          success ? 
+            Icon(
+              Icons.check_circle,
+              color: Colors.green,
+            ) : 
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text(
+            message,
+            style: TextStyle(color: Colors.white),
+          )
+        ],
+      ),
+    );
+
+
+    fToast.showToast(
+      child: customToast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2)
     );
   }
 }
