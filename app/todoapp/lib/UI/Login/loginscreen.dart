@@ -1,10 +1,19 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:todoapp/UI/Login/login_widget.dart';
+import 'package:todoapp/UI/Login/signup_widget.dart';
 import '../../models/assets/global.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
+
+
+TextEditingController signupEmailController = TextEditingController();
+TextEditingController signupUsernameController = TextEditingController();
+TextEditingController signupPasswordController = TextEditingController();
+TextEditingController signupFirstNameController = TextEditingController();
+TextEditingController signupLastNameController = TextEditingController();
+
+TextEditingController loginUsernameEmailController = TextEditingController();
+TextEditingController loginPasswordController = TextEditingController();
 
 
 class LoginPage extends StatefulWidget {
@@ -21,98 +30,168 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
 
   bool _signupResourceBlocked = false;
-  
-  TextEditingController emailController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
+
+    signupEmailController = TextEditingController();
+    signupUsernameController = TextEditingController();
+    signupPasswordController = TextEditingController();
+    signupFirstNameController = TextEditingController();
+    signupLastNameController = TextEditingController();
+
+    
+    loginUsernameEmailController = TextEditingController();
+    loginPasswordController = TextEditingController();
     
 
-    return Scaffold(
-      body: Container(
-        // color: Colors.white,
-        child: Column(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
           children: <Widget>[
-            Text("Hi!", style: loginScreenTitle),
-            Text("Ready to get productive?", style: loginScreenSubtitle),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                      top: 60, 
-                      left: 40, 
-                      right: 40, 
-                      bottom: 60
+            Container(
+              color: lightGreyColor,
+            ),
+            Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 375,
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 50),
+                    // height: 375,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50)
+                      )
                     ),
                     child: Column(
-                      children: <Widget>[
-                        TextField(
-                          controller: firstNameController,
-                          decoration: InputDecoration(hintText: "First Name (optional)"),
-                        ),
-                        TextField(
-                          controller: lastNameController,
-                          decoration: InputDecoration(hintText: "Last name (optional)"),
-                        ),
-                        TextField(
-                          controller: emailController,
-                          decoration: InputDecoration(hintText: "Email"),
-                        ),
-                        TextField(
-                          controller: usernameController,
-                          decoration: InputDecoration(hintText: "Username"),
-                        ),
-                        TextField(
-                          controller: passwordController,
-                          decoration: InputDecoration(hintText: "Password"),
+                      children: [
+                        Text("Hi!", style: loginScreenTitle),
+                        Text("Ready to get productive?", style: loginScreenSubtitle),
+                        // Container(),
+                        const Spacer(),
+                        SizedBox(
+                          height: 50,
+                          child: TabBar(
+                            tabs: const [
+                              Tab(
+                                text: "Login",
+                              ),
+                              Tab(
+                                text: "Sign up",
+                              ),
+                            ],
+                            labelColor: redMainColor,
+                            labelStyle: tabBarLabel,
+                            unselectedLabelColor: darkGreyColor,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorPadding: const EdgeInsets.all(5.0),
+                            indicatorColor: Colors.transparent,
+                            dividerColor: Colors.transparent,
+                          ),
                         ),
                       ],
                     )
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: redMainColor,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () async {
-        
-                      _signupResourceBlocked = true;
-                      
-                      if (usernameController.text.isNotEmpty && 
-                          passwordController.text.isNotEmpty &&
-                          emailController.text.isNotEmpty) {
-        
-                          await bloc.signupUser(
-                            usernameController.text,
-                            emailController.text,
-                            passwordController.text,
-                            firstNameController.text,
-                            lastNameController.text
-                          ).then((_) {
-                            _signupResourceBlocked = false;
-        
-                            Fluttertoast.showToast(msg: "Successfully signed up!");
-        
-                            widget.redirectHomePage();
-                          });
-        
-                      } else {
-        
-                        Fluttertoast.showToast(msg: "Required fields missing");
-                      
-                      }
-                    },
-                    child: Text("Sign up!"),
-                  )
-                ],
-              ),
-            )
-          ],
+                ),
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            LoginWidget(),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: redMainColor,
+                                foregroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                        
+                                /* _signupResourceBlocked = true;
+                                
+                                if (usernameController.text.isNotEmpty && 
+                                    passwordController.text.isNotEmpty &&
+                                    emailController.text.isNotEmpty) {
+                                        
+                                    await bloc.signupUser(
+                                      usernameController.text,
+                                      emailController.text,
+                                      passwordController.text,
+                                      firstNameController.text,
+                                      lastNameController.text
+                                    ).then((_) {
+                                      _signupResourceBlocked = false;
+                                        
+                                      Fluttertoast.showToast(msg: "Successfully signed up!");
+                                        
+                                      widget.redirectHomePage();
+                                    });
+                                        
+                                } else {
+                                        
+                                  Fluttertoast.showToast(msg: "Required fields missing");
+                                
+                                } */
+                              },
+                              child: Text("Login!"),
+                            )
+                          ],
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            SignupWidget(),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: redMainColor,
+                                foregroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                        
+                                _signupResourceBlocked = true;
+                                
+                                if (signupUsernameController.text.isNotEmpty && 
+                                    signupPasswordController.text.isNotEmpty &&
+                                    signupEmailController.text.isNotEmpty) {
+                                        
+                                    await bloc.signupUser(
+                                      signupUsernameController.text,
+                                      signupEmailController.text,
+                                      signupPasswordController.text,
+                                      signupFirstNameController.text,
+                                      signupLastNameController.text
+                                    ).then((_) {
+                                      _signupResourceBlocked = false;
+                                        
+                                      Fluttertoast.showToast(msg: "Successfully signed up!");
+                                        
+                                      widget.redirectHomePage();
+                                    });
+                                        
+                                } else {
+                                        
+                                  Fluttertoast.showToast(msg: "Required fields missing");
+                                
+                                }
+                              },
+                              child: Text("Sign up!"),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ]
         ),
       ),
     );

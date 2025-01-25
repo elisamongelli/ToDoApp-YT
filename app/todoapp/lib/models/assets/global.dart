@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color darkGreyColor = const Color(0xFF212128);
-Color lightGreyColor = const Color.fromARGB(255, 208, 208, 216);
+Color lightGreyColor = const Color.fromARGB(255, 189, 189, 202);
 
 /* 
   ----- DA PROVARE -----
@@ -16,6 +16,7 @@ Color lightGreyColor = const Color.fromARGB(255, 208, 208, 216);
 Color redMainColor = const Color.fromARGB(255, 247, 73, 79);
 
 
+// styles for task list
 TextStyle taskListTitleStyle = TextStyle(
   fontFamily: 'Avenir',
   fontWeight: FontWeight.bold,
@@ -39,6 +40,7 @@ TextStyle singleTaskSubtitle = TextStyle(
 );
 
 
+// styles for login/signup screen container
 TextStyle loginScreenTitle = TextStyle(
   fontFamily: 'Playwrite',
   fontWeight: FontWeight.normal,
@@ -53,3 +55,11 @@ TextStyle loginScreenSubtitle = TextStyle(
   fontSize: 25
 );
 
+
+// styles for login/signup tabbar
+TextStyle tabBarLabel = TextStyle(
+  fontFamily: 'Avenir',
+  fontWeight: FontWeight.normal,
+  color: darkGreyColor,
+  fontSize: 20
+);

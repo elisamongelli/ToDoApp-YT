@@ -113,68 +113,69 @@ class _MyHomePageState extends State<MyHomePage> {
   getHomePageLayout() {
 
     return MaterialApp(
-      color: Colors.yellow,
       home: SafeArea(
         child: DefaultTabController(
           length: 3,
           initialIndex: 1,
           child: Scaffold(
-            body: Stack(children: <Widget>[
-              TabBarView(
-                children: [
-                  Container(
-                    color: Colors.orange,
-                  ),
-                  IntrayPage(),
-                  Container(
-                    color: Colors.lightGreen,
-                    child: IconButton(
-                        onPressed: () {
-                          deleteApiKey();
-                        },
-                        icon: Icon(CupertinoIcons.delete)),
-                  ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 30),
-                height: 175,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            body: Stack(
+              children: <Widget>[
+                TabBarView(
                   children: [
-                    Text(
-                      "Task List",
-                      style: taskListTitleStyle,
+                    Container(
+                      color: Colors.orange,
                     ),
-                    Container(),
+                    IntrayPage(),
+                    Container(
+                      color: Colors.lightGreen,
+                      child: IconButton(
+                          onPressed: () {
+                            deleteApiKey();
+                          },
+                          icon: Icon(CupertinoIcons.delete)),
+                    ),
                   ],
-                )
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                margin: EdgeInsets.only(
-                  top: 140,
-                  left: (MediaQuery.of(context).size.width * 0.5) - 35,
                 ),
-                child: FloatingActionButton(
-                  backgroundColor: redMainColor,
-                  foregroundColor: Colors.white,
-                  shape: const CircleBorder(),
-                  onPressed: () {},
-                  child: const Icon(
-                    CupertinoIcons.add,
-                    size: 50,
-                    color: Colors.white,
+                Container(
+                  padding: const EdgeInsets.only(left: 30),
+                  height: 175,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Task List",
+                        style: taskListTitleStyle,
+                      ),
+                      Container(),
+                    ],
+                  )
+                ),
+                Container(
+                  height: 70,
+                  width: 70,
+                  margin: EdgeInsets.only(
+                    top: 140,
+                    left: (MediaQuery.of(context).size.width * 0.5) - 35,
                   ),
-                ),
-              )
-            ]),
+                  child: FloatingActionButton(
+                    backgroundColor: redMainColor,
+                    foregroundColor: Colors.white,
+                    shape: const CircleBorder(),
+                    onPressed: () {},
+                    child: const Icon(
+                      CupertinoIcons.add,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ]
+            ),
             appBar: AppBar(
               title: TabBar(
                 tabs: const [
