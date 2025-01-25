@@ -61,7 +61,6 @@ class LoginPageState extends State<LoginPage> {
                   height: 375,
                   child: Container(
                     padding: const EdgeInsets.only(top: 50),
-                    // height: 375,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -73,7 +72,6 @@ class LoginPageState extends State<LoginPage> {
                       children: [
                         Text("Hi!", style: loginScreenTitle),
                         Text("Ready to get productive?", style: loginScreenSubtitle),
-                        // Container(),
                         const Spacer(),
                         SizedBox(
                           height: 50,
@@ -103,87 +101,79 @@ class LoginPageState extends State<LoginPage> {
                   child: TabBarView(
                     children: [
                       SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            LoginWidget(),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: redMainColor,
-                                foregroundColor: Colors.white,
-                              ),
-                              onPressed: () async {
-                                        
-                                /* _signupResourceBlocked = true;
-                                
-                                if (usernameController.text.isNotEmpty && 
-                                    passwordController.text.isNotEmpty &&
-                                    emailController.text.isNotEmpty) {
-                                        
-                                    await bloc.signupUser(
-                                      usernameController.text,
-                                      emailController.text,
-                                      passwordController.text,
-                                      firstNameController.text,
-                                      lastNameController.text
-                                    ).then((_) {
-                                      _signupResourceBlocked = false;
-                                        
-                                      Fluttertoast.showToast(msg: "Successfully signed up!");
-                                        
-                                      widget.redirectHomePage();
-                                    });
-                                        
-                                } else {
-                                        
-                                  Fluttertoast.showToast(msg: "Required fields missing");
-                                
-                                } */
-                              },
-                              child: Text("Login!"),
-                            )
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              LoginWidget(),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: redMainColor,
+                                  foregroundColor: Colors.white,
+                                ),
+                                onPressed: () async {
+                          
+                                  Fluttertoast.showToast(
+                                    msg: "toast test",
+                                    toastLength: Toast.LENGTH_SHORT
+                                  );
+                                },
+                                child: Text("Login!"),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            SignupWidget(),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: redMainColor,
-                                foregroundColor: Colors.white,
-                              ),
-                              onPressed: () async {
-                                        
-                                _signupResourceBlocked = true;
-                                
-                                if (signupUsernameController.text.isNotEmpty && 
-                                    signupPasswordController.text.isNotEmpty &&
-                                    signupEmailController.text.isNotEmpty) {
-                                        
-                                    await bloc.signupUser(
-                                      signupUsernameController.text,
-                                      signupEmailController.text,
-                                      signupPasswordController.text,
-                                      signupFirstNameController.text,
-                                      signupLastNameController.text
-                                    ).then((_) {
-                                      _signupResourceBlocked = false;
-                                        
-                                      Fluttertoast.showToast(msg: "Successfully signed up!");
-                                        
-                                      widget.redirectHomePage();
-                                    });
-                                        
-                                } else {
-                                        
-                                  Fluttertoast.showToast(msg: "Required fields missing");
-                                
-                                }
-                              },
-                              child: Text("Sign up!"),
-                            )
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              SignupWidget(),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: redMainColor,
+                                  foregroundColor: Colors.white,
+                                ),
+                                onPressed: () async {
+                                          
+                                  _signupResourceBlocked = true;
+                                  
+                                  if (signupUsernameController.text.isNotEmpty && 
+                                      signupPasswordController.text.isNotEmpty &&
+                                      signupEmailController.text.isNotEmpty) {
+                                          
+                                      await bloc.signupUser(
+                                        signupUsernameController.text,
+                                        signupEmailController.text,
+                                        signupPasswordController.text,
+                                        signupFirstNameController.text,
+                                        signupLastNameController.text
+                                      ).then((_) {
+                                        _signupResourceBlocked = false;
+                                          
+                                        Fluttertoast.showToast(
+                                          msg: "Successfully signed up!",
+                                          toastLength: Toast.LENGTH_SHORT
+                                        );
+                                          
+                                        widget.redirectHomePage();
+                                      });
+                                          
+                                  } else {
+                                          
+                                    Fluttertoast.showToast(msg: "Required fields missing");
+                                  
+                                  }
+                                },
+                                child: Text("Sign up!"),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
