@@ -7,11 +7,11 @@ import 'package:todoapp/models/assets/global.dart';
 // import 'package:http/http.dart';
 
 
-var DBConnection = null;
+// var DBConnection = null;
 
 class IntrayPage extends StatefulWidget {
-  IntrayPage({super.key});
-
+  
+  const IntrayPage({super.key});
 
   @override
   State<IntrayPage> createState() => _IntrayPageState();

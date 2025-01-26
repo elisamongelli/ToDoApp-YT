@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'loginscreen.dart';
+import '../../UI/Login/loginscreen.dart';
 
 
 class SignupWidget extends StatefulWidget {
-  SignupWidget({super.key});
-
+  
+  const SignupWidget({super.key});
 
   @override
   State<SignupWidget> createState() => _SignupWidgetState();

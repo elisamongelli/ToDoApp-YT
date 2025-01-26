@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'loginscreen.dart';
+import '../../UI/Login/loginscreen.dart';
 
 
 class LoginWidget extends StatefulWidget {
-  LoginWidget({super.key});
-
+  
+  const LoginWidget({super.key});
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:todoapp/UI/Login/login_widget.dart';
-import 'package:todoapp/UI/Login/signup_widget.dart';
+import 'package:todoapp/models/widgets/login_widget.dart';
+import 'package:todoapp/models/widgets/signup_widget.dart';
 import '../../models/assets/global.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
@@ -31,18 +31,8 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
 
+  // ignore: unused_field
   bool _signupResourceBlocked = false;
-
-  late FToast fToast;
-
-
-  @override
-  void initState() {
-    super.initState();
-
-    fToast = FToast();
-    fToast.init(context);
-  }
 
 
   @override
@@ -203,6 +193,7 @@ class LoginPageState extends State<LoginPage> {
 
 
   void showCustomToast(String message, bool success) {
+    
     Widget customToast = Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 24.0,
