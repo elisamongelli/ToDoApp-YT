@@ -90,6 +90,7 @@ class LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 50,
                           child: TabBar(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             tabs: const [
                               Tab(
                                 text: "Login",
