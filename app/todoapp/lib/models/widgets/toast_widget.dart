@@ -4,8 +4,11 @@ import '../../models/assets/global.dart';
 
 
 class ToastWidget extends StatefulWidget {
+
+  final String message;
+  final bool success;
   
-  const ToastWidget({super.key, required message, required success});
+  const ToastWidget({super.key, required this.message, required this.success});
 
   @override
   State<ToastWidget> createState() => _ToastWidgetState();
@@ -23,13 +26,20 @@ class _ToastWidgetState extends State<ToastWidget> {
 
     fToast = FToast();
     fToast.init(context);
+
+    showCustomToast();
   }
 
 
   @override
   Widget build(BuildContext context) {
+    return const SizedBox.shrink();
+  }
 
-    return Container(
+
+  void showCustomToast() {
+
+    Widget customToast = Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 24.0,
         vertical: 12.0
@@ -41,7 +51,7 @@ class _ToastWidgetState extends State<ToastWidget> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          this.success ? 
+          widget.success ? 
             Icon(
               Icons.check_circle,
               color: Colors.green,
@@ -54,11 +64,18 @@ class _ToastWidgetState extends State<ToastWidget> {
             width: 12.0,
           ),
           Text(
-            message,
+            widget.message,
             style: TextStyle(color: Colors.white),
           )
         ],
       ),
+    );
+
+
+    fToast.showToast(
+      child: customToast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 2)
     );
   }
 }

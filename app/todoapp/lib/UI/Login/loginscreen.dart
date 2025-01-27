@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:todoapp/models/widgets/login_widget.dart';
 import 'package:todoapp/models/widgets/signup_widget.dart';
+import 'package:todoapp/models/widgets/toast_widget.dart';
 import '../../models/assets/global.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
@@ -120,8 +121,30 @@ class LoginPageState extends State<LoginPage> {
                                 ),
                                 onPressed: () async {
 
-                                  showCustomToast("Successfully logged in!", true);
-                                  
+                                  final overlay = Overlay.of(context);
+
+                                  if (overlay != null) {
+                                    final overlayEntry = OverlayEntry(
+                                      builder: (context) => Positioned(
+                                        bottom: 50,
+                                        left: MediaQuery.of(context).size.width * 0.2,
+                                        right: MediaQuery.of(context).size.width * 0.2,
+                                        child: ToastWidget(
+                                          message: "Successfully logged in!", 
+                                          success: true
+                                        )
+                                      )
+                                    );
+
+
+                                    overlay.insert(overlayEntry);
+
+                                    Future.delayed(const Duration(seconds: 2), () {
+                                      overlayEntry.remove();
+                                    });
+                                  } else {
+                                    print("Overlay non disponibile");
+                                  }
                                 },
                                 child: Text("Login!"),
                               )
@@ -192,7 +215,7 @@ class LoginPageState extends State<LoginPage> {
 
 
 
-  void showCustomToast(String message, bool success) {
+  /* void showCustomToast(String message, bool success) {
     
     Widget customToast = Container(
       padding: const EdgeInsets.symmetric(
@@ -232,5 +255,5 @@ class LoginPageState extends State<LoginPage> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 2)
     );
-  }
+  } */
 }
