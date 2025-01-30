@@ -27,7 +27,10 @@ class _ToastWidgetState extends State<ToastWidget> {
     fToast = FToast();
     fToast.init(context);
 
-    showCustomToast();
+    // shows toast after build is completed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showCustomToast();
+    });
   }
 
 

@@ -123,28 +123,30 @@ class LoginPageState extends State<LoginPage> {
 
                                   final overlay = Overlay.of(context);
 
-                                  if (overlay != null) {
-                                    final overlayEntry = OverlayEntry(
-                                      builder: (context) => Positioned(
-                                        bottom: 50,
-                                        left: MediaQuery.of(context).size.width * 0.2,
-                                        right: MediaQuery.of(context).size.width * 0.2,
-                                        child: ToastWidget(
-                                          message: "Successfully logged in!", 
-                                          success: true
-                                        )
+                                  final overlayEntry = OverlayEntry(
+                                    builder: (context) => Positioned(
+                                      bottom: 50,
+                                      left: MediaQuery.of(context).size.width * 0.2,
+                                      right: MediaQuery.of(context).size.width * 0.2,
+                                      child: ToastWidget(
+                                        message: "Successfully logged in!", 
+                                        success: true
                                       )
-                                    );
+                                    )
+                                  );
 
 
+                                  // shows toast after build is completed
+                                  WidgetsBinding.instance.addPostFrameCallback((_) {
                                     overlay.insert(overlayEntry);
+                                  });
+                                  
 
-                                    Future.delayed(const Duration(seconds: 2), () {
-                                      overlayEntry.remove();
-                                    });
-                                  } else {
-                                    print("Overlay non disponibile");
-                                  }
+                                  // hide toast after 2 seconds
+                                  Future.delayed(const Duration(seconds: 2), () {
+                                    overlayEntry.remove();
+                                  });
+
                                 },
                                 child: Text("Login!"),
                               )
