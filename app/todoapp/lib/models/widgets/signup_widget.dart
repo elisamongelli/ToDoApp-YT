@@ -4,8 +4,21 @@ import '../../UI/Login/loginscreen.dart';
 
 
 class SignupWidget extends StatefulWidget {
+
+  final FocusNode emailFocusNode;
+  final FocusNode usernameFocusNode;
+  final FocusNode passwordFocusNode;
+  final FocusNode firstNameFocusNode;
+  final FocusNode lastNameFocusNode;
   
-  const SignupWidget({super.key});
+  const SignupWidget({
+    super.key,
+    required this.emailFocusNode,
+    required this.usernameFocusNode,
+    required this.passwordFocusNode,
+    required this.firstNameFocusNode,
+    required this.lastNameFocusNode
+  });
 
   @override
   State<SignupWidget> createState() => _SignupWidgetState();
@@ -30,18 +43,22 @@ class _SignupWidgetState extends State<SignupWidget> {
         children: <Widget>[
           TextField(
             controller: signupFirstNameController,
+            focusNode: widget.firstNameFocusNode,
             decoration: InputDecoration(hintText: "First Name (optional)"),
           ),
           TextField(
             controller: signupLastNameController,
+            focusNode: widget.lastNameFocusNode,
             decoration: InputDecoration(hintText: "Last name (optional)"),
           ),
           TextField(
             controller: signupEmailController,
+            focusNode: widget.emailFocusNode,
             decoration: InputDecoration(hintText: "Email"),
           ),
           TextField(
             controller: signupUsernameController,
+            focusNode: widget.usernameFocusNode,
             decoration: InputDecoration(hintText: "Username"),
           ),
           TextField(
@@ -49,6 +66,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             enableSuggestions: false,
             autocorrect: false,
             controller: signupPasswordController,
+            focusNode: widget.passwordFocusNode,
             decoration: InputDecoration(
               hintText: "Password",
               suffixIcon: IconButton(

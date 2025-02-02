@@ -2,8 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../UI/Login/loginscreen.dart';
 
+
+
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+
+  final FocusNode usernameEmailFocusNode;
+  final FocusNode passwordFocusNode;
+
+  const LoginWidget({
+    super.key,
+    required this.usernameEmailFocusNode,
+    required this.passwordFocusNode
+  });
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -22,6 +32,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           children: <Widget>[
             TextField(
               controller: loginUsernameEmailController,
+              focusNode: widget.usernameEmailFocusNode,
               decoration: InputDecoration(hintText: "Username or Email"),
             ),
             TextField(
@@ -29,6 +40,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               enableSuggestions: false,
               autocorrect: false,
               controller: loginPasswordController,
+              focusNode: widget.passwordFocusNode,
               decoration: InputDecoration(
                 hintText: "Password",
                 suffixIcon: IconButton(
