@@ -10,6 +10,7 @@ class SignupWidget extends StatefulWidget {
   final FocusNode passwordFocusNode;
   final FocusNode firstNameFocusNode;
   final FocusNode lastNameFocusNode;
+  final Function(FocusNode) scrollToFocusedField;
   
   const SignupWidget({
     super.key,
@@ -17,7 +18,8 @@ class SignupWidget extends StatefulWidget {
     required this.usernameFocusNode,
     required this.passwordFocusNode,
     required this.firstNameFocusNode,
-    required this.lastNameFocusNode
+    required this.lastNameFocusNode,
+    required this.scrollToFocusedField
   });
 
   @override
@@ -45,21 +47,29 @@ class _SignupWidgetState extends State<SignupWidget> {
             controller: signupFirstNameController,
             focusNode: widget.firstNameFocusNode,
             decoration: InputDecoration(hintText: "First Name (optional)"),
+            onTap: () => widget.scrollToFocusedField(widget.firstNameFocusNode),
+            onChanged: (value) => widget.scrollToFocusedField(widget.firstNameFocusNode),
           ),
           TextField(
             controller: signupLastNameController,
             focusNode: widget.lastNameFocusNode,
             decoration: InputDecoration(hintText: "Last name (optional)"),
+            onTap: () => widget.scrollToFocusedField(widget.lastNameFocusNode),
+            onChanged: (value) => widget.scrollToFocusedField(widget.lastNameFocusNode),
           ),
           TextField(
             controller: signupEmailController,
             focusNode: widget.emailFocusNode,
             decoration: InputDecoration(hintText: "Email"),
+            onTap: () => widget.scrollToFocusedField(widget.emailFocusNode),
+            onChanged: (value) => widget.scrollToFocusedField(widget.emailFocusNode),
           ),
           TextField(
             controller: signupUsernameController,
             focusNode: widget.usernameFocusNode,
             decoration: InputDecoration(hintText: "Username"),
+            onTap: () => widget.scrollToFocusedField(widget.usernameFocusNode),
+            onChanged: (value) => widget.scrollToFocusedField(widget.usernameFocusNode),
           ),
           TextField(
             obscureText: _isObscured,
@@ -67,6 +77,8 @@ class _SignupWidgetState extends State<SignupWidget> {
             autocorrect: false,
             controller: signupPasswordController,
             focusNode: widget.passwordFocusNode,
+            onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
             decoration: InputDecoration(
               hintText: "Password",
               suffixIcon: IconButton(

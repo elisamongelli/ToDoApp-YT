@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/widgets/login_widget.dart';
 import 'package:todoapp/models/widgets/signup_widget.dart';
@@ -160,7 +159,8 @@ class LoginPageState extends State<LoginPage> {
                             children: <Widget>[
                               LoginWidget(
                                 usernameEmailFocusNode: _loginUsernameEmailFocus,
-                                passwordFocusNode: _loginPasswordFocus
+                                passwordFocusNode: _loginPasswordFocus,
+                                scrollToFocusedField: _scrollToFocusedField,
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -219,7 +219,8 @@ class LoginPageState extends State<LoginPage> {
                                 usernameFocusNode: _signupUsernameFocus,
                                 passwordFocusNode: _signupPasswordFocus,
                                 firstNameFocusNode: _signupFirstNameFocus,
-                                lastNameFocusNode: _signupLastNameFocus
+                                lastNameFocusNode: _signupLastNameFocus,
+                                scrollToFocusedField: _scrollToFocusedField,
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -329,8 +330,17 @@ class LoginPageState extends State<LoginPage> {
   void _scrollToFocusedField(FocusNode focusNode) {
 
     if (focusNode.hasFocus) {
+
+      Future.delayed(const Duration(milliseconds: 300), () {
+        Scrollable.ensureVisible(
+          focusNode.context!,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          alignment: 0.2
+        );
+      });
       
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      /* WidgetsBinding.instance.addPostFrameCallback((_) {
         
         RenderObject? object = focusNode.context?.findRenderObject();
         
@@ -355,7 +365,7 @@ class LoginPageState extends State<LoginPage> {
           
           }
         }
-      });
+      }); */
     }
   }
 }

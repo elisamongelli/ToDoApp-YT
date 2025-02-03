@@ -8,15 +8,20 @@ class LoginWidget extends StatefulWidget {
 
   final FocusNode usernameEmailFocusNode;
   final FocusNode passwordFocusNode;
+  final Function(FocusNode) scrollToFocusedField;
 
+  
   const LoginWidget({
     super.key,
     required this.usernameEmailFocusNode,
-    required this.passwordFocusNode
+    required this.passwordFocusNode,
+    required this.scrollToFocusedField
   });
+
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
+
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
@@ -33,6 +38,8 @@ class _LoginWidgetState extends State<LoginWidget> {
             TextField(
               controller: loginUsernameEmailController,
               focusNode: widget.usernameEmailFocusNode,
+              onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+              onChanged: (value) => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
               decoration: InputDecoration(hintText: "Username or Email"),
             ),
             TextField(
@@ -41,6 +48,8 @@ class _LoginWidgetState extends State<LoginWidget> {
               autocorrect: false,
               controller: loginPasswordController,
               focusNode: widget.passwordFocusNode,
+              onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+              onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
               decoration: InputDecoration(
                 hintText: "Password",
                 suffixIcon: IconButton(
