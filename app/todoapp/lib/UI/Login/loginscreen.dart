@@ -51,14 +51,22 @@ class LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    _loginUsernameEmailFocus.addListener(() => _scrollToFocusedField(_loginUsernameEmailFocus));
+    /* _loginUsernameEmailFocus.addListener(() => _scrollToFocusedField(_loginUsernameEmailFocus));
     _loginPasswordFocus.addListener(() => _scrollToFocusedField(_loginPasswordFocus));
 
     _signupEmailFocus.addListener(() => _scrollToFocusedField(_signupEmailFocus));
     _signupUsernameFocus.addListener(() => _scrollToFocusedField(_signupUsernameFocus));
     _signupPasswordFocus.addListener(() => _scrollToFocusedField(_signupPasswordFocus));
     _signupFirstNameFocus.addListener(() => _scrollToFocusedField(_signupFirstNameFocus));
-    _signupLastNameFocus.addListener(() => _scrollToFocusedField(_signupLastNameFocus));
+    _signupLastNameFocus.addListener(() => _scrollToFocusedField(_signupLastNameFocus)); */
+
+    [_loginUsernameEmailFocus, _loginPasswordFocus, 
+    _signupEmailFocus, _signupUsernameFocus, _signupPasswordFocus, 
+    _signupFirstNameFocus, _signupLastNameFocus].forEach((focusNode) {
+      focusNode.addListener(() {
+        _scrollToFocusedField(focusNode);
+      });
+    });
   }
 
 
@@ -331,6 +339,7 @@ class LoginPageState extends State<LoginPage> {
 
     if (focusNode.hasFocus) {
 
+      // execution is delayed in order to be sure that virtual keyboard is visible
       Future.delayed(const Duration(milliseconds: 300), () {
         Scrollable.ensureVisible(
           focusNode.context!,
@@ -338,34 +347,101 @@ class LoginPageState extends State<LoginPage> {
           curve: Curves.easeInOut,
           alignment: 0.2
         );
-      });
-      
-      /* WidgetsBinding.instance.addPostFrameCallback((_) {
-        
+      }); 
+    }
+
+
+    // execution delayed in order to be sure that keyboard is visible
+    /* Future.delayed(const Duration(milliseconds: 300), () {
+
+      if (!focusNode.hasFocus) return;
+
+
+      RenderObject? object = focusNode.context?.findRenderObject();
+
+      if (object is RenderBox) {
+
+        final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+        final screenHeight = MediaQuery.of(context).size.height;
+        final fieldPosition = object.localToGlobal(Offset.zero).dy;
+        final fieldHeight = object.size.height;
+
+        // check if field is completely/partially covered by the keyboard
+        final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
+
+
+        if (isFieldCovered) {
+
+          double yOffset = fieldPosition - (screenHeight - keyboardHeight - fieldHeight - 20);
+
+          _scrollController.animateTo(
+            // limits offset by scroll limits
+            yOffset.clamp(0.0, _scrollController.position.maxScrollExtent), // Limita l'offset entro i limiti dello scroll
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+          
+        }
+      }
+    }); */
+
+
+    /* if (focusNode.hasFocus) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         RenderObject? object = focusNode.context?.findRenderObject();
         
         if (object is RenderBox) {
-
-          final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
           final screenHeight = MediaQuery.of(context).size.height;
+          final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
           final fieldPosition = object.localToGlobal(Offset.zero).dy;
           final fieldHeight = object.size.height;
 
+          // Verifica se il campo è già visibile sopra la tastiera
+          final isFieldCoveredByKeyboard = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
 
-          // check if field is under virtual keyboard
-          if (fieldPosition + fieldHeight > screenHeight - keyboardHeight) {
+          if (isFieldCoveredByKeyboard) {
+            // Calcola il nuovo offset
+            double yOffset = fieldPosition - (screenHeight - keyboardHeight - fieldHeight - 20);
 
-            double yOffset = object.localToGlobal(Offset.zero).dy - 100;
-            
+            // Assicurati di non scrollare sopra la parte visibile
+            if (yOffset < 0) yOffset = 0;
+
             _scrollController.animateTo(
               yOffset,
               duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut
+              curve: Curves.easeInOut,
             );
-          
           }
         }
-      }); */
-    }
+      });
+    } */
+
+      
+    /* WidgetsBinding.instance.addPostFrameCallback((_) {
+      
+      RenderObject? object = focusNode.context?.findRenderObject();
+      
+      if (object is RenderBox) {
+
+        final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+        final screenHeight = MediaQuery.of(context).size.height;
+        final fieldPosition = object.localToGlobal(Offset.zero).dy;
+        final fieldHeight = object.size.height;
+
+
+        // check if field is under virtual keyboard
+        if (fieldPosition + fieldHeight > screenHeight - keyboardHeight) {
+
+          double yOffset = object.localToGlobal(Offset.zero).dy - 100;
+          
+          _scrollController.animateTo(
+            yOffset,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut
+          );
+        
+        }
+      }
+    }); */
   }
 }
