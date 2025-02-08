@@ -340,108 +340,33 @@ class LoginPageState extends State<LoginPage> {
     if (focusNode.hasFocus) {
 
       // execution is delayed in order to be sure that virtual keyboard is visible
-      Future.delayed(const Duration(milliseconds: 300), () {
-        Scrollable.ensureVisible(
-          focusNode.context!,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          alignment: 0.2
-        );
-      }); 
-    }
+      Future.delayed(const Duration(milliseconds: 600), () {
 
+        if (focusNode.context == null) return;
 
-    // execution delayed in order to be sure that keyboard is visible
-    /* Future.delayed(const Duration(milliseconds: 300), () {
-
-      if (!focusNode.hasFocus) return;
-
-
-      RenderObject? object = focusNode.context?.findRenderObject();
-
-      if (object is RenderBox) {
+        final RenderBox? renderBox = focusNode.context?.findRenderObject() as RenderBox?;
+        if (renderBox == null) return;
 
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
         final screenHeight = MediaQuery.of(context).size.height;
-        final fieldPosition = object.localToGlobal(Offset.zero).dy;
-        final fieldHeight = object.size.height;
 
-        // check if field is completely/partially covered by the keyboard
+        // check field position
+        final fieldPosition = renderBox.localToGlobal(Offset.zero).dy;
+        final fieldHeight = renderBox.size.height;
+
         final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
+        final isFieldAlmostCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
 
-
-        if (isFieldCovered) {
-
-          double yOffset = fieldPosition - (screenHeight - keyboardHeight - fieldHeight - 20);
-
-          _scrollController.animateTo(
-            // limits offset by scroll limits
-            yOffset.clamp(0.0, _scrollController.position.maxScrollExtent), // Limita l'offset entro i limiti dello scroll
+        // scroll if field is covered by keyboard
+        if (isFieldCovered || isFieldAlmostCovered) {
+          Scrollable.ensureVisible(
+            focusNode.context!,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
+            alignment: 0.1
           );
-          
-        }
-      }
-    }); */
-
-
-    /* if (focusNode.hasFocus) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        RenderObject? object = focusNode.context?.findRenderObject();
-        
-        if (object is RenderBox) {
-          final screenHeight = MediaQuery.of(context).size.height;
-          final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-          final fieldPosition = object.localToGlobal(Offset.zero).dy;
-          final fieldHeight = object.size.height;
-
-          // Verifica se il campo è già visibile sopra la tastiera
-          final isFieldCoveredByKeyboard = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
-
-          if (isFieldCoveredByKeyboard) {
-            // Calcola il nuovo offset
-            double yOffset = fieldPosition - (screenHeight - keyboardHeight - fieldHeight - 20);
-
-            // Assicurati di non scrollare sopra la parte visibile
-            if (yOffset < 0) yOffset = 0;
-
-            _scrollController.animateTo(
-              yOffset,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          }
         }
       });
-    } */
-
-      
-    /* WidgetsBinding.instance.addPostFrameCallback((_) {
-      
-      RenderObject? object = focusNode.context?.findRenderObject();
-      
-      if (object is RenderBox) {
-
-        final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-        final screenHeight = MediaQuery.of(context).size.height;
-        final fieldPosition = object.localToGlobal(Offset.zero).dy;
-        final fieldHeight = object.size.height;
-
-
-        // check if field is under virtual keyboard
-        if (fieldPosition + fieldHeight > screenHeight - keyboardHeight) {
-
-          double yOffset = object.localToGlobal(Offset.zero).dy - 100;
-          
-          _scrollController.animateTo(
-            yOffset,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut
-          );
-        
-        }
-      }
-    }); */
+    }
   }
 }
