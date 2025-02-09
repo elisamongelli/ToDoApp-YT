@@ -32,41 +32,42 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(top: 60, left: 40, right: 40, bottom: 60),
-        child: Column(
-          children: <Widget>[
-            TextField(
-              controller: loginUsernameEmailController,
-              focusNode: widget.usernameEmailFocusNode,
-              // onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
-              // onChanged: (value) => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
-              decoration: InputDecoration(hintText: "Username or Email"),
+      margin: EdgeInsets.only(top: 60, left: 40, right: 40, bottom: 60),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            controller: loginUsernameEmailController,
+            focusNode: widget.usernameEmailFocusNode,
+            onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+            // onChanged: (value) => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+            decoration: InputDecoration(hintText: "Username or Email"),
+          ),
+          TextField(
+            obscureText: _isObscured,
+            enableSuggestions: false,
+            autocorrect: false,
+            controller: loginPasswordController,
+            focusNode: widget.passwordFocusNode,
+            onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            // onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
+            decoration: InputDecoration(
+              hintText: "Password",
+              suffixIcon: IconButton(
+                icon: visible,
+                onPressed: () {
+                  setState(() {
+                    _isObscured = !_isObscured;
+                    
+                    _isObscured ? 
+                      visible = Icon(CupertinoIcons.eye_fill) :
+                      visible = Icon(CupertinoIcons.eye_slash_fill);
+                  });
+                },
+              )
             ),
-            TextField(
-              obscureText: _isObscured,
-              enableSuggestions: false,
-              autocorrect: false,
-              controller: loginPasswordController,
-              focusNode: widget.passwordFocusNode,
-              // onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
-              // onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
-              decoration: InputDecoration(
-                hintText: "Password",
-                suffixIcon: IconButton(
-                  icon: visible,
-                  onPressed: () {
-                    setState(() {
-                      _isObscured = !_isObscured;
-                      
-                      _isObscured ? 
-                        visible = Icon(CupertinoIcons.eye_fill) :
-                        visible = Icon(CupertinoIcons.eye_slash_fill);
-                    });
-                  },
-                )
-              ),
-            ),
-          ],
-        ));
+          ),
+        ],
+      )
+    );
   }
 }

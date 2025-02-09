@@ -51,20 +51,28 @@ class LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    /* _loginUsernameEmailFocus.addListener(() => _scrollToFocusedField(_loginUsernameEmailFocus));
-    _loginPasswordFocus.addListener(() => _scrollToFocusedField(_loginPasswordFocus));
-
-    _signupEmailFocus.addListener(() => _scrollToFocusedField(_signupEmailFocus));
-    _signupUsernameFocus.addListener(() => _scrollToFocusedField(_signupUsernameFocus));
-    _signupPasswordFocus.addListener(() => _scrollToFocusedField(_signupPasswordFocus));
-    _signupFirstNameFocus.addListener(() => _scrollToFocusedField(_signupFirstNameFocus));
-    _signupLastNameFocus.addListener(() => _scrollToFocusedField(_signupLastNameFocus)); */
-
     [_loginUsernameEmailFocus, _loginPasswordFocus, 
     _signupEmailFocus, _signupUsernameFocus, _signupPasswordFocus, 
     _signupFirstNameFocus, _signupLastNameFocus].forEach((focusNode) {
+      
       focusNode.addListener(() {
-        _scrollToFocusedField(focusNode);
+
+        if (focusNode.hasFocus) {
+
+          _scrollToFocusedField(focusNode);
+
+        } else {
+
+          Future.delayed(const Duration(milliseconds: 50), () {
+
+            if (!focusNode.hasFocus && focusNode.context != null && focusNode.context!.mounted) {
+              FocusScope.of(context).requestFocus(focusNode);
+              print("Focus ripristinato per ${focusNode.debugLabel}");
+            }
+
+          });
+
+        }
       });
     });
   }
@@ -340,12 +348,18 @@ class LoginPageState extends State<LoginPage> {
     if (focusNode.hasFocus) {
 
       // execution is delayed in order to be sure that virtual keyboard is visible
-      Future.delayed(const Duration(milliseconds: 600), () {
+      Future.delayed(const Duration(milliseconds: 630), () {
 
-        if (focusNode.context == null) return;
+        if (focusNode.context == null || !focusNode.context!.mounted) {
+          print("_scroll: contesto non valido o widget non montato per ${focusNode.debugLabel}");
+          return;
+        }
 
         final RenderBox? renderBox = focusNode.context?.findRenderObject() as RenderBox?;
-        if (renderBox == null) return;
+        if (renderBox == null) {
+          print("_scroll: renderbox non valido per ${focusNode.debugLabel}");
+          return;
+        }
 
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
         final screenHeight = MediaQuery.of(context).size.height;
@@ -357,13 +371,15 @@ class LoginPageState extends State<LoginPage> {
         final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
         final isFieldAlmostCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
 
+        print("_scroll: fieldPosition per ${focusNode.debugLabel} è " + fieldPosition.toString());
+
         // scroll if field is covered by keyboard
         if (isFieldCovered || isFieldAlmostCovered) {
           Scrollable.ensureVisible(
             focusNode.context!,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            alignment: 0.1
+            alignment: 0.2
           );
         }
       });
