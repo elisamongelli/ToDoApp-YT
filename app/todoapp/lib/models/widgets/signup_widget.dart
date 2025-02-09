@@ -60,7 +60,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             focusNode: widget.firstNameFocusNode,
             onTap: () {
               widget.scrollToFocusedField(widget.firstNameFocusNode);
-              // _requestFocus(widget.firstNameFocusNode);
+              // _requestFocus(widgext.firstNameFocusNode);
             },
             // onChanged: (value) => widget.scrollToFocusedField(widget.firstNameFocusNode),
             decoration: InputDecoration(hintText: "First Name (optional)"),

@@ -61,7 +61,7 @@ class LoginPageState extends State<LoginPage> {
 
           _scrollToFocusedField(focusNode);
 
-        } else {
+        }/*  else {
 
           Future.delayed(const Duration(milliseconds: 50), () {
 
@@ -72,7 +72,7 @@ class LoginPageState extends State<LoginPage> {
 
           });
 
-        }
+        } */
       });
     });
   }
@@ -349,6 +349,10 @@ class LoginPageState extends State<LoginPage> {
 
       // execution is delayed in order to be sure that virtual keyboard is visible
       Future.delayed(const Duration(milliseconds: 630), () {
+
+        /**** keyboard should be all visible at this point ****/
+
+        // TODO: continue checking how to get focus to field
 
         if (focusNode.context == null || !focusNode.context!.mounted) {
           print("_scroll: contesto non valido o widget non montato per ${focusNode.debugLabel}");
