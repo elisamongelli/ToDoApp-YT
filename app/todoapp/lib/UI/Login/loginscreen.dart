@@ -352,6 +352,13 @@ class LoginPageState extends State<LoginPage> {
 
         /**** keyboard should be all visible at this point ****/
 
+        /* print("LA TASTEIRA E' COMPLETAMENTE VISIBILE");
+
+        Future.delayed(const Duration(seconds: 10), () {
+          print("SONO PASSATI 10 SECONDI");
+          FocusManager.instance.primaryFocus?.unfocus();
+        }); */
+
         // TODO: continue checking how to get focus to field
 
         if (focusNode.context == null || !focusNode.context!.mounted) {
@@ -386,6 +393,14 @@ class LoginPageState extends State<LoginPage> {
             alignment: 0.2
           );
         }
+
+
+        Future.delayed(const Duration(milliseconds: 5000), () {
+          if(focusNode.context != null && focusNode.context!.mounted) {
+            FocusScope.of(context).requestFocus(focusNode);
+            print("FOCUS RIPRISTINATO PER ${focusNode.debugLabel}");
+          }
+        });
       });
     }
   }
