@@ -395,18 +395,47 @@ class LoginPageState extends State<LoginPage> {
         }
 
 
-        Future.delayed(const Duration(milliseconds: 100), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           if(focusNode.context != null && focusNode.context!.mounted) {
 
             FocusScope.of(context).requestFocus(focusNode);
             print("FOCUS RIPRISTINATO PER ${focusNode.debugLabel}");
 
-            if (focusNode == _signupEmailFocus) {
+            if (focusNode == _loginUsernameEmailFocus) {
+              
+              loginUsernameEmailController.selection = TextSelection.collapsed(offset: loginUsernameEmailController.text.length);
+              print("FOCUS SUL CAMPO DELLO USERNAME DI LOGIN");
+            
+            } else if (focusNode == _loginPasswordFocus) {
+              
+              loginPasswordController.selection = TextSelection.collapsed(offset: loginPasswordController.text.length);
+              print("FOCUS SUL CAMPO DELLA PASSWORD DI LOGIN");
+            
+            } else if (focusNode == _signupEmailFocus) {
+              
               signupEmailController.selection = TextSelection.collapsed(offset: signupEmailController.text.length);
               print("FOCUS SUL CAMPO DELL'EMAIL DI REGISTRAZIONE");
+            
+            } else if (focusNode == _signupUsernameFocus) {
+              
+              signupUsernameController.selection = TextSelection.collapsed(offset: signupUsernameController.text.length);
+              print("FOCUS SUL CAMPO DELLO USERNAME DI REGISTRAZIONE");
+            
+            } else if (focusNode == _signupPasswordFocus) {
+              
+              signupPasswordController.selection = TextSelection.collapsed(offset: signupPasswordController.text.length);
+              print("FOCUS SUL CAMPO DELLA PASSWORD DI REGISTRAZIONE");
+            
             } else if (focusNode == _signupFirstNameFocus) {
+              
               signupFirstNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
               print("FOCUS SUL CAMPO DEL NOME DI REGISTRAZIONE");
+            
+            } else if (focusNode == _signupLastNameFocus) {
+              
+              signupLastNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
+              print("FOCUS SUL CAMPO DEL COGNOME DI REGISTRAZIONE");
+            
             }
           }
         });
