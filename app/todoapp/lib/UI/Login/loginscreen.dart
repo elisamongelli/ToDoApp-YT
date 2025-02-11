@@ -395,10 +395,19 @@ class LoginPageState extends State<LoginPage> {
         }
 
 
-        Future.delayed(const Duration(milliseconds: 5000), () {
+        Future.delayed(const Duration(milliseconds: 100), () {
           if(focusNode.context != null && focusNode.context!.mounted) {
+
             FocusScope.of(context).requestFocus(focusNode);
             print("FOCUS RIPRISTINATO PER ${focusNode.debugLabel}");
+
+            if (focusNode == _signupEmailFocus) {
+              signupEmailController.selection = TextSelection.collapsed(offset: signupEmailController.text.length);
+              print("FOCUS SUL CAMPO DELL'EMAIL DI REGISTRAZIONE");
+            } else if (focusNode == _signupFirstNameFocus) {
+              signupFirstNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
+              print("FOCUS SUL CAMPO DEL NOME DI REGISTRAZIONE");
+            }
           }
         });
       });
