@@ -401,6 +401,7 @@ class LoginPageState extends State<LoginPage> {
             FocusScope.of(context).requestFocus(focusNode);
             print("FOCUS RIPRISTINATO PER ${focusNode.debugLabel}");
 
+
             if (focusNode == _loginUsernameEmailFocus) {
               
               loginUsernameEmailController.selection = TextSelection.collapsed(offset: loginUsernameEmailController.text.length);
