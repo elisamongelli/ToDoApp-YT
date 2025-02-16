@@ -237,6 +237,7 @@ class LoginPageState extends State<LoginPage> {
                                 onPressed: () async {
 
                                   FocusManager.instance.primaryFocus?.unfocus();
+                                  
                                           
                                   _signupResourceBlocked = true;
                                   
@@ -265,7 +266,7 @@ class LoginPageState extends State<LoginPage> {
                                             left: MediaQuery.of(context).size.width * 0.2,
                                             right: MediaQuery.of(context).size.width * 0.2,
                                             child: ToastWidget(
-                                              message: "Successfully logged in!", 
+                                              message: "Successfully signed up!",
                                               success: true
                                             )
                                           )
