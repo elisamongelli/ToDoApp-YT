@@ -43,6 +43,7 @@ class LoginPageState extends State<LoginPage> {
   final FocusNode _signupFirstNameFocus = FocusNode();
   final FocusNode _signupLastNameFocus = FocusNode();
 
+
   // ignore: unused_field
   bool _signupResourceBlocked = false;
 
@@ -51,30 +52,20 @@ class LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
 
-    [_loginUsernameEmailFocus, _loginPasswordFocus, 
+
+    for (var singleFocusNode in [_loginUsernameEmailFocus, _loginPasswordFocus, 
     _signupEmailFocus, _signupUsernameFocus, _signupPasswordFocus, 
-    _signupFirstNameFocus, _signupLastNameFocus].forEach((focusNode) {
+    _signupFirstNameFocus, _signupLastNameFocus]) {
       
-      focusNode.addListener(() {
+      singleFocusNode.addListener(() {
 
-        if (focusNode.hasFocus) {
+        if (singleFocusNode.hasFocus) {
+          
+          _scrollToFocusedField(singleFocusNode);
 
-          _scrollToFocusedField(focusNode);
-
-        }/*  else {
-
-          Future.delayed(const Duration(milliseconds: 50), () {
-
-            if (!focusNode.hasFocus && focusNode.context != null && focusNode.context!.mounted) {
-              FocusScope.of(context).requestFocus(focusNode);
-              print("Focus ripristinato per ${focusNode.debugLabel}");
-            }
-
-          });
-
-        } */
+        }
       });
-    });
+    }
   }
 
 
@@ -263,6 +254,8 @@ class LoginPageState extends State<LoginPage> {
                                         _signupResourceBlocked = false;
                                         
 
+                                        if (!context.mounted) return;
+                                        
                                         // showing toast signup successful
                                         final overlay = Overlay.of(context);
 
@@ -350,31 +343,27 @@ class LoginPageState extends State<LoginPage> {
       // execution is delayed in order to be sure that virtual keyboard is visible
       Future.delayed(const Duration(milliseconds: 630), () {
 
-        /**** keyboard should be all visible at this point ****/
+        /* =====================================================
+         * 
+         * keyboard should be completely visible at this point 
+         * 
+         * ===================================================== */
 
-        /* print("LA TASTEIRA E' COMPLETAMENTE VISIBILE");
-
-        Future.delayed(const Duration(seconds: 10), () {
-          print("SONO PASSATI 10 SECONDI");
-          FocusManager.instance.primaryFocus?.unfocus();
-        }); */
-
-        // TODO: continue checking how to get focus to field
-
-        if (focusNode.context == null || !focusNode.context!.mounted) {
-          print("_scroll: contesto non valido o widget non montato per ${focusNode.debugLabel}");
-          return;
-        }
 
         final RenderBox? renderBox = focusNode.context?.findRenderObject() as RenderBox?;
-        if (renderBox == null) {
-          print("_scroll: renderbox non valido per ${focusNode.debugLabel}");
+        
+        if (renderBox == null) return;
+
+
+        if (!mounted) {
           return;
         }
 
+        // calc heights in order to check if field is covered
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
         final screenHeight = MediaQuery.of(context).size.height;
 
+        
         // check field position
         final fieldPosition = renderBox.localToGlobal(Offset.zero).dy;
         final fieldHeight = renderBox.size.height;
@@ -382,7 +371,6 @@ class LoginPageState extends State<LoginPage> {
         final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
         final isFieldAlmostCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
 
-        print("_scroll: fieldPosition per ${focusNode.debugLabel} è " + fieldPosition.toString());
 
         // scroll if field is covered by keyboard
         if (isFieldCovered || isFieldAlmostCovered) {
@@ -395,47 +383,39 @@ class LoginPageState extends State<LoginPage> {
         }
 
 
-        Future.delayed(const Duration(milliseconds: 200), () {
-          if(focusNode.context != null && focusNode.context!.mounted) {
+        Future.delayed(const Duration(milliseconds: 350), () {
+
+          if (mounted) {
 
             FocusScope.of(context).requestFocus(focusNode);
-            print("FOCUS RIPRISTINATO PER ${focusNode.debugLabel}");
-
 
             if (focusNode == _loginUsernameEmailFocus) {
               
               loginUsernameEmailController.selection = TextSelection.collapsed(offset: loginUsernameEmailController.text.length);
-              print("FOCUS SUL CAMPO DELLO USERNAME DI LOGIN");
             
             } else if (focusNode == _loginPasswordFocus) {
               
               loginPasswordController.selection = TextSelection.collapsed(offset: loginPasswordController.text.length);
-              print("FOCUS SUL CAMPO DELLA PASSWORD DI LOGIN");
             
             } else if (focusNode == _signupEmailFocus) {
               
               signupEmailController.selection = TextSelection.collapsed(offset: signupEmailController.text.length);
-              print("FOCUS SUL CAMPO DELL'EMAIL DI REGISTRAZIONE");
             
             } else if (focusNode == _signupUsernameFocus) {
               
               signupUsernameController.selection = TextSelection.collapsed(offset: signupUsernameController.text.length);
-              print("FOCUS SUL CAMPO DELLO USERNAME DI REGISTRAZIONE");
             
             } else if (focusNode == _signupPasswordFocus) {
               
               signupPasswordController.selection = TextSelection.collapsed(offset: signupPasswordController.text.length);
-              print("FOCUS SUL CAMPO DELLA PASSWORD DI REGISTRAZIONE");
             
             } else if (focusNode == _signupFirstNameFocus) {
               
               signupFirstNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
-              print("FOCUS SUL CAMPO DEL NOME DI REGISTRAZIONE");
             
             } else if (focusNode == _signupLastNameFocus) {
               
               signupLastNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
-              print("FOCUS SUL CAMPO DEL COGNOME DI REGISTRAZIONE");
             
             }
           }
