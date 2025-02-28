@@ -40,7 +40,18 @@ class _LoginWidgetState extends State<LoginWidget> {
             focusNode: widget.usernameEmailFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
             // onChanged: (value) => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
-            decoration: InputDecoration(hintText: "Username or Email"),
+            decoration: InputDecoration(
+              hintText: "Username or Email",
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.yellow)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.green)
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)
+              )
+            ),
           ),
           TextField(
             obscureText: _isObscured,
