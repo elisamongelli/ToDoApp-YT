@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-Color darkGreyColor = const Color(0xFF212128);
+
+Color darkGreyColor = const Color.fromARGB(255, 33, 33, 40);
 Color lightGreyColor = const Color.fromARGB(255, 189, 189, 202);
-
-/* 
-  ----- DA PROVARE -----
-
-  Color lightGreyColor = const Color.fromARGB(255, 189, 189, 202);  // grigio chiaro ma più scuro dei successivi
-  Color lightGreyColor = const Color.fromARGB(255, 208, 208, 216);  // grigio chiaro ma non troppo, si nota rispetto al bianco
-  Color lightGreyColor = const Color(0xFFEEEEEE);                   // grigio molto chiaro, quasi bianco
-
-  ----- DA PROVARE -----
-*/
-
 Color redMainColor = const Color.fromARGB(255, 247, 73, 79);
+
+
+/* Color todo = const Color.fromARGB(255, 242, 243, 174); // --> giallo chiaro
+Color todo = const Color.fromARGB(255, 255, 255, 255); // --> bianco
+Color todo = const Color.fromARGB(255, 219, 254, 184); // --> verde chiaro
+Color todo = const Color.fromARGB(255, 238, 243, 106); // --> icterine */
 
 
 // styles for task list

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todoapp/models/assets/global.dart';
 import '../../UI/Login/loginscreen.dart';
 
 
@@ -39,11 +40,12 @@ class _LoginWidgetState extends State<LoginWidget> {
             controller: loginUsernameEmailController,
             focusNode: widget.usernameEmailFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               hintText: "Username or Email",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.yellow)
+                borderSide: BorderSide(color: darkGreyColor)
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.green)
