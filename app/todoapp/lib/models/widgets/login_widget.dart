@@ -42,13 +42,14 @@ class _LoginWidgetState extends State<LoginWidget> {
             onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
+              icon: Icon(Icons.add_ic_call_outlined, color: goldSecondaryColor),
               hintText: "Username or Email",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: darkGreyColor)
               ),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.green)
+                borderSide: BorderSide(color: goldSecondaryColor)
               ),
               errorBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.red)
