@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/models/assets/global.dart';
 import '../../UI/Login/loginscreen.dart';
@@ -28,7 +28,7 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   
   bool _isObscured = true;
-  Icon visible = Icon(CupertinoIcons.eye_fill);
+  Icon visible = Icon(Symbols.visibility);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Icons.add_ic_call_outlined, color: goldSecondaryColor),
+              icon: Icon(Symbols.person, color: goldSecondaryColor),
               hintText: "Username or Email",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -63,9 +63,20 @@ class _LoginWidgetState extends State<LoginWidget> {
             controller: loginPasswordController,
             focusNode: widget.passwordFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
+              icon: Icon(Symbols.password, color: goldSecondaryColor),
               hintText: "Password",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)
+              ),
               suffixIcon: IconButton(
                 icon: visible,
                 onPressed: () {
@@ -73,8 +84,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     _isObscured = !_isObscured;
                     
                     _isObscured ? 
-                      visible = Icon(CupertinoIcons.eye_fill) :
-                      visible = Icon(CupertinoIcons.eye_slash_fill);
+                      visible = Icon(Symbols.visibility) :
+                      visible = Icon(Symbols.visibility_off);
                   });
                 },
               )

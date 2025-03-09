@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:todoapp/models/assets/global.dart';
 import '../../UI/Login/loginscreen.dart';
 
 
@@ -30,7 +31,7 @@ class SignupWidget extends StatefulWidget {
 class _SignupWidgetState extends State<SignupWidget> {
 
   bool _isObscured = true;
-  Icon visible = Icon(CupertinoIcons.eye_fill);
+  Icon visible = Icon(Symbols.visibility);
 
 
   @override
@@ -58,33 +59,76 @@ class _SignupWidgetState extends State<SignupWidget> {
           TextField(
             controller: signupFirstNameController,
             focusNode: widget.firstNameFocusNode,
-            onTap: () {
-              widget.scrollToFocusedField(widget.firstNameFocusNode);
-              // _requestFocus(widgext.firstNameFocusNode);
-            },
-            // onChanged: (value) => widget.scrollToFocusedField(widget.firstNameFocusNode),
-            decoration: InputDecoration(hintText: "First Name (optional)"),
+            onTap: () => widget.scrollToFocusedField(widget.firstNameFocusNode),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              icon: Icon(Symbols.id_card, color: goldSecondaryColor),
+              hintText: "First Name (optional)",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              )
+            ),
           ),
           TextField(
             controller: signupLastNameController,
             focusNode: widget.lastNameFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.lastNameFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.lastNameFocusNode),
-            decoration: InputDecoration(hintText: "Last name (optional)"),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              icon: Icon(Symbols.id_card, color: goldSecondaryColor),
+              hintText: "Last name (optional)",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              )
+            ),
           ),
           TextField(
             controller: signupEmailController,
             focusNode: widget.emailFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.emailFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.emailFocusNode),
-            decoration: InputDecoration(hintText: "Email"),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              icon: Icon(Symbols.mail, color: goldSecondaryColor),
+              hintText: "Email",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)
+              )
+            ),
           ),
           TextField(
             controller: signupUsernameController,
             focusNode: widget.usernameFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.usernameFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.usernameFocusNode),
-            decoration: InputDecoration(hintText: "Username"),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              icon: Icon(Symbols.person, color: goldSecondaryColor),
+              hintText: "Username",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)
+              )
+            ),
           ),
           TextField(
             obscureText: _isObscured,
@@ -93,9 +137,20 @@ class _SignupWidgetState extends State<SignupWidget> {
             controller: signupPasswordController,
             focusNode: widget.passwordFocusNode,
             onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
-            // onChanged: (value) => widget.scrollToFocusedField(widget.passwordFocusNode),
+            style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
+              icon: Icon(Symbols.password, color: goldSecondaryColor),
               hintText: "Password",
+              hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: darkGreyColor)
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: goldSecondaryColor)
+              ),
+              errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.red)
+              ),
               suffixIcon: IconButton(
                 icon: visible,
                 onPressed: () {
@@ -103,8 +158,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                     _isObscured = !_isObscured;
                     
                     _isObscured ? 
-                      visible = Icon(CupertinoIcons.eye_fill) :
-                      visible = Icon(CupertinoIcons.eye_slash_fill);
+                      visible = Icon(Symbols.visibility) :
+                      visible = Icon(Symbols.visibility_off);
                   });
                 },
               )
@@ -114,24 +169,4 @@ class _SignupWidgetState extends State<SignupWidget> {
       )
     );
   }
-
-
-  /* void _requestFocus(FocusNode focusNode) {
-
-    Future.delayed(const Duration(milliseconds: 100), () {
-
-      if (focusNode.context != null && focusNode.context!.mounted) {//&& !focusNode.hasFocus) {
-
-        FocusScope.of(context).requestFocus(focusNode);
-        print("Focus richiesto per ${focusNode.debugLabel}");
-
-      } else {
-
-        print('Contesto non valido o widget non montato per: ${focusNode.debugLabel}');
-        print('Contesto: ${focusNode.context}');
-        print('Widget montato: ${focusNode.context?.mounted}');
-
-      }
-    });
-  } */
 }
