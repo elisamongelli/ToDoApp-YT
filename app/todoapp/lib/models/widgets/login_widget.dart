@@ -28,7 +28,7 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   
   bool _isObscured = true;
-  Icon visible = Icon(Symbols.visibility);
+  Icon visible = Icon(Symbols.visibility_rounded);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.person, color: goldSecondaryColor),
+              icon: Icon(Symbols.person_rounded, color: goldSecondaryColor),
               hintText: "Username or Email",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -65,7 +65,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.password, color: goldSecondaryColor),
+              icon: Icon(Symbols.password_rounded, color: goldSecondaryColor),
               hintText: "Password",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -84,8 +84,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     _isObscured = !_isObscured;
                     
                     _isObscured ? 
-                      visible = Icon(Symbols.visibility) :
-                      visible = Icon(Symbols.visibility_off);
+                      visible = Icon(Symbols.visibility_rounded) :
+                      visible = Icon(Symbols.visibility_off_rounded);
                   });
                 },
               )
