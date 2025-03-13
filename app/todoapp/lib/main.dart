@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/Intray/intray_page.dart';
 import 'package:todoapp/UI/Login/loginscreen.dart';
@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: () {
                             deleteApiKey();
                           },
-                          icon: Icon(CupertinoIcons.delete)),
+                          icon: Icon(Symbols.delete_rounded)), // use delete_forever icon on "are u sure" popup
                     ),
                   ],
                 ),
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     shape: const CircleBorder(),
                     onPressed: () {},
                     child: const Icon(
-                      CupertinoIcons.add,
+                      Symbols.add_rounded,
                       size: 50,
                       color: Colors.white,
                     ),
@@ -180,13 +180,13 @@ class _MyHomePageState extends State<MyHomePage> {
               title: TabBar(
                 tabs: const [
                   Tab(
-                    icon: Icon(CupertinoIcons.home),
+                    icon: Icon(Symbols.home_rounded),
                   ),
                   Tab(
-                    icon: Icon(CupertinoIcons.person),
+                    icon: Icon(Symbols.person_rounded),
                   ),
                   Tab(
-                    icon: Icon(CupertinoIcons.settings),
+                    icon: Icon(Symbols.settings_rounded),
                   )
                 ],
                 labelColor: Colors.orange,

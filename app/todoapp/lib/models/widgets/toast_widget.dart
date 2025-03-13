@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../models/assets/global.dart';
 
@@ -56,11 +57,11 @@ class _ToastWidgetState extends State<ToastWidget> {
         children: [
           widget.success ? 
             Icon(
-              Icons.check_circle,
+              Symbols.check_circle_rounded,
               color: Colors.green,
             ) : 
             Icon(
-              Icons.close,
+              Symbols.close_rounded,
               color: Colors.red,
             ),
           SizedBox(

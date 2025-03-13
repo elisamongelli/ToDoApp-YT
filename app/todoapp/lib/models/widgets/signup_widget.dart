@@ -31,7 +31,7 @@ class SignupWidget extends StatefulWidget {
 class _SignupWidgetState extends State<SignupWidget> {
 
   bool _isObscured = true;
-  Icon visible = Icon(Symbols.visibility);
+  Icon visible = Icon(Symbols.visibility_rounded);
 
 
   @override
@@ -62,7 +62,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () => widget.scrollToFocusedField(widget.firstNameFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.id_card, color: goldSecondaryColor),
+              icon: Icon(Symbols.id_card_rounded, color: goldSecondaryColor),
               hintText: "First Name (optional)",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -79,7 +79,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () => widget.scrollToFocusedField(widget.lastNameFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.id_card, color: goldSecondaryColor),
+              icon: Icon(Symbols.id_card_rounded, color: goldSecondaryColor),
               hintText: "Last name (optional)",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -96,7 +96,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () => widget.scrollToFocusedField(widget.emailFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.mail, color: goldSecondaryColor),
+              icon: Icon(Symbols.mail_rounded, color: goldSecondaryColor),
               hintText: "Email",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -116,7 +116,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () => widget.scrollToFocusedField(widget.usernameFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.person, color: goldSecondaryColor),
+              icon: Icon(Symbols.person_rounded, color: goldSecondaryColor),
               hintText: "Username",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -139,7 +139,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
-              icon: Icon(Symbols.password, color: goldSecondaryColor),
+              icon: Icon(Symbols.password_rounded, color: goldSecondaryColor),
               hintText: "Password",
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
@@ -158,8 +158,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                     _isObscured = !_isObscured;
                     
                     _isObscured ? 
-                      visible = Icon(Symbols.visibility) :
-                      visible = Icon(Symbols.visibility_off);
+                      visible = Icon(Symbols.visibility_rounded) :
+                      visible = Icon(Symbols.visibility_off_rounded);
                   });
                 },
               )
