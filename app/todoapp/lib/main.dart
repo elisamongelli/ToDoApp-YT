@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'models/assets/global.dart';
 
 void main() {
+
+  // debugDumpFocusTree();
+
   runApp(const MyApp());
 }
 

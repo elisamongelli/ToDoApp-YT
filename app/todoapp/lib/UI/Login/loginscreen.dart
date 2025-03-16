@@ -53,15 +53,23 @@ class LoginPageState extends State<LoginPage> {
     super.initState();
 
 
-    for (var singleFocusNode in [_loginUsernameEmailFocus, _loginPasswordFocus, 
-    _signupEmailFocus, _signupUsernameFocus, _signupPasswordFocus, 
-    _signupFirstNameFocus, _signupLastNameFocus]) {
+    for (var singleFocusNode in [
+      _loginUsernameEmailFocus,
+      _loginPasswordFocus,
+      _signupEmailFocus,
+      _signupUsernameFocus,
+      _signupPasswordFocus,
+      _signupFirstNameFocus,
+      _signupLastNameFocus
+    ]) {
       
       singleFocusNode.addListener(() {
 
         if (singleFocusNode.hasFocus) {
           
           _scrollToFocusedField(singleFocusNode);
+
+          // _restoreCursor(singleFocusNode);
 
         }
       });
@@ -73,15 +81,22 @@ class LoginPageState extends State<LoginPage> {
   void dispose() {
     _scrollController.dispose();
 
-    _loginUsernameEmailFocus.dispose();
-    _loginPasswordFocus.dispose();
+    for (var singleFocusNode in [
+      _loginUsernameEmailFocus,
+      _loginPasswordFocus,
+      _signupEmailFocus,
+      _signupUsernameFocus,
+      _signupPasswordFocus,
+      _signupFirstNameFocus,
+      _signupLastNameFocus
+    ]) {
+      
+      singleFocusNode.removeListener(() {});
+      singleFocusNode.dispose();
 
-    _signupEmailFocus.dispose();
-    _signupUsernameFocus.dispose();
-    _signupPasswordFocus.dispose();
-    _signupFirstNameFocus.dispose();
-    _signupLastNameFocus.dispose();
+    }
 
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -339,6 +354,76 @@ class LoginPageState extends State<LoginPage> {
 
   void _scrollToFocusedField(FocusNode focusNode) {
 
+
+    if (focusNode.hasFocus) {
+      // execution is delayed in order to be sure that virtual keyboard is visible
+      Future.delayed(const Duration(milliseconds: 630), () {
+        final RenderBox? renderBox = focusNode.context?.findRenderObject() as RenderBox?;
+        
+        if (renderBox == null) return;
+
+        if (!mounted) {
+          return;
+        }
+
+        // calc heights in order to check if field is covered
+        final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+        final screenHeight = MediaQuery.of(context).size.height;
+
+        // check field position
+        final fieldPosition = renderBox.localToGlobal(Offset.zero).dy;
+        final fieldHeight = renderBox.size.height;
+
+        final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
+        final isFieldAlmostCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
+
+        // scroll if field is covered by keyboard
+        if (isFieldCovered || isFieldAlmostCovered) {
+          Scrollable.ensureVisible(
+            focusNode.context!,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            alignment: 0.2
+          );
+        }
+      });
+    }
+  }
+
+
+
+  /* void _restoreCursor(FocusNode focusNode) {
+
+    if (focusNode.hasFocus) {
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+
+          if (focusNode == _loginUsernameEmailFocus) {
+            loginUsernameEmailController.selection = TextSelection.collapsed(offset: loginUsernameEmailController.text.length);
+          } else if (focusNode == _loginPasswordFocus) {
+            loginPasswordController.selection = TextSelection.collapsed(offset: loginPasswordController.text.length);
+          } else if (focusNode == _signupEmailFocus) {
+            signupEmailController.selection = TextSelection.collapsed(offset: signupEmailController.text.length);
+          } else if (focusNode == _signupUsernameFocus) {
+            signupUsernameController.selection = TextSelection.collapsed(offset: signupUsernameController.text.length);
+          } else if (focusNode == _signupPasswordFocus) {
+            signupPasswordController.selection = TextSelection.collapsed(offset: signupPasswordController.text.length);
+          } else if (focusNode == _signupFirstNameFocus) {
+            signupFirstNameController.selection = TextSelection.collapsed(offset: signupFirstNameController.text.length);
+          } else if (focusNode == _signupLastNameFocus) {
+            signupLastNameController.selection = TextSelection.collapsed(offset: signupLastNameController.text.length);
+          }
+
+        });
+      });
+    }
+  } */
+
+
+
+  /* void _scrollToFocusedField(FocusNode focusNode) {
+
     if (focusNode.hasFocus) {
 
       // execution is delayed in order to be sure that virtual keyboard is visible
@@ -423,5 +508,5 @@ class LoginPageState extends State<LoginPage> {
         });
       });
     }
-  }
+  } */
 }

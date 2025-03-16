@@ -39,7 +39,20 @@ class _LoginWidgetState extends State<LoginWidget> {
           TextField(
             controller: loginUsernameEmailController,
             focusNode: widget.usernameEmailFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.usernameEmailFocusNode),
+            onTap: () {
+              print("SONO IN ON TAP DELLO USERNAME");
+              widget.scrollToFocusedField(widget.usernameEmailFocusNode);
+              print("HO CHIAMATO IL METODO DI SCROLL DELLO USERNAME");
+              // Forza il ripristino del cursore
+              Future.delayed(const Duration(milliseconds: 700), () {
+                loginUsernameEmailController.selection = TextSelection.collapsed(
+                  offset: loginUsernameEmailController.text.length,
+                );
+              });
+              print("STO PER STAMPARE L'ALBERO DEI FOCUS DELLO USERNAME");
+              print(FocusManager.instance.toStringDeep());
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.person_rounded, color: goldSecondaryColor),
@@ -62,7 +75,18 @@ class _LoginWidgetState extends State<LoginWidget> {
             autocorrect: false,
             controller: loginPasswordController,
             focusNode: widget.passwordFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            onTap: () {
+              print("SONO IN ON TAP DELLA PASSWORD");
+              widget.scrollToFocusedField(widget.passwordFocusNode);
+              print("HO CHIAMATO IL METODO DI SCROLL DELLA PASSWORD");
+              // Forza il ripristino del cursore
+              loginPasswordController.selection = TextSelection.collapsed(
+                offset: loginPasswordController.text.length,
+              );
+              print("STO PER STAMPARE L'ALBERO DEI FOCUS DELLA PASSWORD");
+              print(FocusManager.instance.toStringDeep());
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.password_rounded, color: goldSecondaryColor),

@@ -59,7 +59,14 @@ class _SignupWidgetState extends State<SignupWidget> {
           TextField(
             controller: signupFirstNameController,
             focusNode: widget.firstNameFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.firstNameFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.firstNameFocusNode),
+            onTap: () {
+              widget.scrollToFocusedField(widget.firstNameFocusNode);
+              // Forza il ripristino del cursore
+              signupFirstNameController.selection = TextSelection.collapsed(
+                offset: signupFirstNameController.text.length,
+              );
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.id_card_rounded, color: goldSecondaryColor),
@@ -76,7 +83,14 @@ class _SignupWidgetState extends State<SignupWidget> {
           TextField(
             controller: signupLastNameController,
             focusNode: widget.lastNameFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.lastNameFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.lastNameFocusNode),
+            onTap: () {
+              widget.scrollToFocusedField(widget.lastNameFocusNode);
+              // Forza il ripristino del cursore
+              signupLastNameController.selection = TextSelection.collapsed(
+                offset: signupLastNameController.text.length,
+              );
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.id_card_rounded, color: goldSecondaryColor),
@@ -93,7 +107,14 @@ class _SignupWidgetState extends State<SignupWidget> {
           TextField(
             controller: signupEmailController,
             focusNode: widget.emailFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.emailFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.emailFocusNode),
+            onTap: () {
+              widget.scrollToFocusedField(widget.emailFocusNode);
+              // Forza il ripristino del cursore
+              signupEmailController.selection = TextSelection.collapsed(
+                offset: signupEmailController.text.length,
+              );
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.mail_rounded, color: goldSecondaryColor),
@@ -113,7 +134,14 @@ class _SignupWidgetState extends State<SignupWidget> {
           TextField(
             controller: signupUsernameController,
             focusNode: widget.usernameFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.usernameFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.usernameFocusNode),
+            onTap: () {
+              widget.scrollToFocusedField(widget.usernameFocusNode);
+              // Forza il ripristino del cursore
+              signupUsernameController.selection = TextSelection.collapsed(
+                offset: signupUsernameController.text.length,
+              );
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.person_rounded, color: goldSecondaryColor),
@@ -136,7 +164,14 @@ class _SignupWidgetState extends State<SignupWidget> {
             autocorrect: false,
             controller: signupPasswordController,
             focusNode: widget.passwordFocusNode,
-            onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            // onTap: () => widget.scrollToFocusedField(widget.passwordFocusNode),
+            onTap: () {
+              widget.scrollToFocusedField(widget.passwordFocusNode);
+              // Forza il ripristino del cursore
+              signupPasswordController.selection = TextSelection.collapsed(
+                offset: signupPasswordController.text.length,
+              );
+            },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
               icon: Icon(Symbols.password_rounded, color: goldSecondaryColor),
