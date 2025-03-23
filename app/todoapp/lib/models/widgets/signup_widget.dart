@@ -63,9 +63,11 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () {
               widget.scrollToFocusedField(widget.firstNameFocusNode);
               // Forza il ripristino del cursore
-              signupFirstNameController.selection = TextSelection.collapsed(
-                offset: signupFirstNameController.text.length,
-              );
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                signupFirstNameController.selection = TextSelection.collapsed(
+                  offset: signupFirstNameController.text.length,
+                );
+              });
             },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
@@ -87,9 +89,11 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () {
               widget.scrollToFocusedField(widget.lastNameFocusNode);
               // Forza il ripristino del cursore
-              signupLastNameController.selection = TextSelection.collapsed(
-                offset: signupLastNameController.text.length,
-              );
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                signupLastNameController.selection = TextSelection.collapsed(
+                  offset: signupLastNameController.text.length,
+                );
+              });
             },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
@@ -111,9 +115,11 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () {
               widget.scrollToFocusedField(widget.emailFocusNode);
               // Forza il ripristino del cursore
-              signupEmailController.selection = TextSelection.collapsed(
-                offset: signupEmailController.text.length,
-              );
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                signupEmailController.selection = TextSelection.collapsed(
+                  offset: signupEmailController.text.length,
+                );
+              });
             },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
@@ -138,9 +144,11 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () {
               widget.scrollToFocusedField(widget.usernameFocusNode);
               // Forza il ripristino del cursore
-              signupUsernameController.selection = TextSelection.collapsed(
-                offset: signupUsernameController.text.length,
-              );
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                signupUsernameController.selection = TextSelection.collapsed(
+                  offset: signupUsernameController.text.length,
+                );
+              });
             },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
@@ -168,9 +176,11 @@ class _SignupWidgetState extends State<SignupWidget> {
             onTap: () {
               widget.scrollToFocusedField(widget.passwordFocusNode);
               // Forza il ripristino del cursore
-              signupPasswordController.selection = TextSelection.collapsed(
-                offset: signupPasswordController.text.length,
-              );
+              Future.delayed(const Duration(milliseconds: 1000), () {
+                signupPasswordController.selection = TextSelection.collapsed(
+                  offset: signupPasswordController.text.length,
+                );
+              });
             },
             style: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w500),
             decoration: InputDecoration(
