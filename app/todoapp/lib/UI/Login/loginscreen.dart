@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/models/widgets/login_widget.dart';
 import 'package:todoapp/models/widgets/signup_widget.dart';
 import 'package:todoapp/models/widgets/toast_widget.dart';
+import 'package:email_validator/email_validator.dart';
 import '../../models/assets/global.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
@@ -14,6 +15,10 @@ TextEditingController signupLastNameController = TextEditingController();
 
 TextEditingController loginUsernameEmailController = TextEditingController();
 TextEditingController loginPasswordController = TextEditingController();
+
+bool emailError = false;
+bool usernameError = false;
+bool passwordError = false;
 
 
 
@@ -253,58 +258,96 @@ class LoginPageState extends State<LoginPage> {
 
                                   FocusManager.instance.primaryFocus?.unfocus();
                                   
-                                          
-                                  _signupResourceBlocked = true;
                                   
-                                  if (signupUsernameController.text.isNotEmpty && 
-                                      signupPasswordController.text.isNotEmpty &&
-                                      signupEmailController.text.isNotEmpty) {
-                                          
-                                      await bloc.signupUser(
-                                        signupUsernameController.text,
-                                        signupEmailController.text,
-                                        signupPasswordController.text,
-                                        signupFirstNameController.text,
-                                        signupLastNameController.text
-                                      ).then((_) {
-                                        _signupResourceBlocked = false;
-                                        
+                                  _signupResourceBlocked = true;
 
-                                        if (!context.mounted) return;
-                                        
-                                        // showing toast signup successful
-                                        final overlay = Overlay.of(context);
 
-                                        final overlayEntry = OverlayEntry(
-                                          builder: (context) => Positioned(
-                                            bottom: 50,
-                                            left: MediaQuery.of(context).size.width * 0.2,
-                                            right: MediaQuery.of(context).size.width * 0.2,
-                                            child: ToastWidget(
-                                              message: "Successfully signed up!",
-                                              success: true
-                                            )
+                                  if (signupUsernameController.text.isEmpty || 
+                                      signupPasswordController.text.isEmpty ||
+                                      signupEmailController.text.isEmpty) {
+
+                                      // showing toast required fields
+                                      final overlay = Overlay.of(context);
+
+                                      final overlayEntry = OverlayEntry(
+                                        builder: (context) => Positioned(
+                                          bottom: 50,
+                                          left: MediaQuery.of(context).size.width * 0.2,
+                                          right: MediaQuery.of(context).size.width * 0.2,
+                                          child: ToastWidget(
+                                            message: "Required fields missing!", 
+                                            success: false
                                           )
-                                        );
+                                        )
+                                      );
 
 
-                                        // shows toast after build is completed
-                                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                                          overlay.insert(overlayEntry);
-                                        });
-                                        
-
-                                        // hide toast after 2 seconds
-                                        Future.delayed(const Duration(seconds: 2), () {
-                                          overlayEntry.remove();
-                                        });
-                                          
-                                        widget.redirectHomePage();
+                                      // shows toast after build is completed
+                                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                                        overlay.insert(overlayEntry);
                                       });
+                                      
+
+                                      // hide toast after 2 seconds
+                                      Future.delayed(const Duration(seconds: 2), () {
+                                        overlayEntry.remove();
+                                      });
+
+
+                                      return;
+                                  }
+
+
+                                  if (EmailValidator.validate(signupEmailController.text)) {
+
+                                      emailError = true;
+
+                                      // showing toast required fields
+                                      /* final overlay = Overlay.of(context);
+
+                                      final overlayEntry = OverlayEntry(
+                                        builder: (context) => Positioned(
+                                          bottom: 50,
+                                          left: MediaQuery.of(context).size.width * 0.2,
+                                          right: MediaQuery.of(context).size.width * 0.2,
+                                          child: ToastWidget(
+                                            message: "Email address is not valid", 
+                                            success: false
+                                          )
+                                        )
+                                      );
+
+
+                                      // shows toast after build is completed
+                                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                                        overlay.insert(overlayEntry);
+                                      });
+                                      
+
+                                      // hide toast after 2 seconds
+                                      Future.delayed(const Duration(seconds: 2), () {
+                                        overlayEntry.remove();
+                                      }); */
+
+
+                                      return;
+                                  }
+
+
                                           
-                                  } else {
+                                  await bloc.signupUser(
+                                    signupUsernameController.text,
+                                    signupEmailController.text,
+                                    signupPasswordController.text,
+                                    signupFirstNameController.text,
+                                    signupLastNameController.text
+                                  ).then((_) {
+                                    _signupResourceBlocked = false;
                                     
-                                    // showing toast required fields
+
+                                    if (!context.mounted) return;
+                                    
+                                    // showing toast signup successful
                                     final overlay = Overlay.of(context);
 
                                     final overlayEntry = OverlayEntry(
@@ -313,8 +356,8 @@ class LoginPageState extends State<LoginPage> {
                                         left: MediaQuery.of(context).size.width * 0.2,
                                         right: MediaQuery.of(context).size.width * 0.2,
                                         child: ToastWidget(
-                                          message: "Required fields missing!", 
-                                          success: false
+                                          message: "Successfully signed up!",
+                                          success: true
                                         )
                                       )
                                     );
@@ -330,8 +373,10 @@ class LoginPageState extends State<LoginPage> {
                                     Future.delayed(const Duration(seconds: 2), () {
                                       overlayEntry.remove();
                                     });
-                                  
-                                  }
+                                      
+                                    widget.redirectHomePage();
+                                  });
+
                                 },
                                 child: Text("Sign up!"),
                               )

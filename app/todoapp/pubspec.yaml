@@ -48,6 +48,8 @@ dependencies:
   google_api_availability: ^5.0.0
   # shared preferences used to store data locally on device
   shared_preferences: ^2.3.5
+  # email validator checks email address sintax
+  email_validator: ^3.0.0
 
   #DB dependencies
   mysql_client: ^0.0.27

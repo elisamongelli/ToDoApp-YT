@@ -125,6 +125,7 @@ class _SignupWidgetState extends State<SignupWidget> {
             decoration: InputDecoration(
               icon: Icon(Symbols.mail_rounded, color: goldSecondaryColor),
               hintText: "Email",
+              errorText: emailError ? "Email address is not valid" : null,
               hintStyle: TextStyle(color: darkGreyColor, fontWeight: FontWeight.w400),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: darkGreyColor)
