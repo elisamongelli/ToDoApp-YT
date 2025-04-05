@@ -121,6 +121,7 @@ class LoginPageState extends State<LoginPage> {
 
 
 
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -398,6 +399,9 @@ class LoginPageState extends State<LoginPage> {
 
 
   void _scrollToFocusedField(FocusNode focusNode) {
+
+
+    print("SIGNUP EMAIL CONTROLLER: " + signupEmailController.text);
 
 
     if (focusNode.hasFocus) {
