@@ -6,7 +6,6 @@ import 'package:email_validator/email_validator.dart';
 import '../../models/assets/global.dart';
 import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
-
 TextEditingController signupEmailController = TextEditingController();
 TextEditingController signupUsernameController = TextEditingController();
 TextEditingController signupPasswordController = TextEditingController();
@@ -20,10 +19,7 @@ bool emailError = false;
 bool usernameError = false;
 bool passwordError = false;
 
-
-
 class LoginPage extends StatefulWidget {
-
   // final VoidCallback redirectHomePage;
   final Function() redirectHomePage;
 
@@ -33,10 +29,7 @@ class LoginPage extends StatefulWidget {
   LoginPageState createState() => LoginPageState();
 }
 
-
-
 class LoginPageState extends State<LoginPage> {
-
   final ScrollController _scrollController = ScrollController();
 
   final FocusNode _loginUsernameEmailFocus = FocusNode();
@@ -48,15 +41,22 @@ class LoginPageState extends State<LoginPage> {
   final FocusNode _signupFirstNameFocus = FocusNode();
   final FocusNode _signupLastNameFocus = FocusNode();
 
-
   // ignore: unused_field
   bool _signupResourceBlocked = false;
-
 
   @override
   void initState() {
     super.initState();
 
+    signupEmailController = TextEditingController();
+    signupUsernameController = TextEditingController();
+    signupPasswordController = TextEditingController();
+    signupFirstNameController = TextEditingController();
+    signupLastNameController = TextEditingController();
+
+    loginUsernameEmailController = TextEditingController();
+    loginPasswordController = TextEditingController();
+
 
     for (var singleFocusNode in [
       _loginUsernameEmailFocus,
@@ -67,24 +67,30 @@ class LoginPageState extends State<LoginPage> {
       _signupFirstNameFocus,
       _signupLastNameFocus
     ]) {
-      
       singleFocusNode.addListener(() {
-
         if (singleFocusNode.hasFocus) {
-          
           _scrollToFocusedField(singleFocusNode);
 
           // _restoreCursor(singleFocusNode);
-
         }
       });
     }
   }
 
-
   @override
   void dispose() {
     _scrollController.dispose();
+
+    signupEmailController.dispose();
+    signupUsernameController.dispose();
+    signupPasswordController.dispose();
+    signupFirstNameController.dispose();
+    signupLastNameController.dispose();
+
+    loginUsernameEmailController.dispose();
+    loginPasswordController.dispose();
+    
+
 
     for (var singleFocusNode in [
       _loginUsernameEmailFocus,
@@ -95,20 +101,18 @@ class LoginPageState extends State<LoginPage> {
       _signupFirstNameFocus,
       _signupLastNameFocus
     ]) {
-      
       singleFocusNode.removeListener(() {});
       singleFocusNode.dispose();
-
     }
 
     _scrollController.dispose();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
 
+    /* SE I CONTROLLER VENGONO INIZIALIZZATI QUI, IL VALORE VIENE SEMPRE AZZERATO
     signupEmailController = TextEditingController();
     signupUsernameController = TextEditingController();
     signupPasswordController = TextEditingController();
@@ -117,37 +121,33 @@ class LoginPageState extends State<LoginPage> {
 
     
     loginUsernameEmailController = TextEditingController();
-    loginPasswordController = TextEditingController();
-
-
+    loginPasswordController = TextEditingController(); */
 
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: <Widget>[
-            Container(
-              color: lightGreyColor,
-            ),
-            Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 375,
-                  child: Container(
+        body: Stack(children: <Widget>[
+          Container(
+            color: lightGreyColor,
+          ),
+          Column(
+            children: <Widget>[
+              SizedBox(
+                height: 375,
+                child: Container(
                     padding: const EdgeInsets.only(top: 50),
                     decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50)
-                      )
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
+                            bottomRight: Radius.circular(50))),
                     child: Column(
                       children: [
                         Text("Hi!", style: loginScreenTitle),
-                        Text("Ready to get productive?", style: loginScreenSubtitle),
+                        Text("Ready to get productive?",
+                            style: loginScreenSubtitle),
                         const Spacer(),
                         SizedBox(
                           height: 50,
@@ -171,140 +171,134 @@ class LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ],
-                    )
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      SingleChildScrollView(
-                        controller: _scrollController,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              LoginWidget(
-                                usernameEmailFocusNode: _loginUsernameEmailFocus,
-                                passwordFocusNode: _loginPasswordFocus,
-                                scrollToFocusedField: _scrollToFocusedField,
+                    )),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            LoginWidget(
+                              usernameEmailFocusNode: _loginUsernameEmailFocus,
+                              passwordFocusNode: _loginPasswordFocus,
+                              scrollToFocusedField: _scrollToFocusedField,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: redMainColor,
+                                foregroundColor: Colors.white,
                               ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: redMainColor,
-                                  foregroundColor: Colors.white,
-                                ),
-                                onPressed: () async {
+                              onPressed: () async {
+                                FocusManager.instance.primaryFocus?.unfocus();
 
-                                  FocusManager.instance.primaryFocus?.unfocus();
+                                // showing toast login successful
+                                final overlay = Overlay.of(context);
 
+                                final overlayEntry = OverlayEntry(
+                                    builder: (context) => Positioned(
+                                        bottom: 50,
+                                        left:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.2,
+                                        child: ToastWidget(
+                                            message: "Successfully logged in!",
+                                            success: true)));
 
-                                  // showing toast login successful
+                                // shows toast after build is completed
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  overlay.insert(overlayEntry);
+                                });
+
+                                // hide toast after 2 seconds
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  overlayEntry.remove();
+                                });
+                              },
+                              child: Text("Login!"),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            SignupWidget(
+                              emailFocusNode: _signupEmailFocus,
+                              usernameFocusNode: _signupUsernameFocus,
+                              passwordFocusNode: _signupPasswordFocus,
+                              firstNameFocusNode: _signupFirstNameFocus,
+                              lastNameFocusNode: _signupLastNameFocus,
+                              scrollToFocusedField: _scrollToFocusedField,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: redMainColor,
+                                foregroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                FocusManager.instance.primaryFocus?.unfocus();
+
+                                _signupResourceBlocked = true;
+
+                                if (signupUsernameController.text.isEmpty ||
+                                    signupPasswordController.text.isEmpty ||
+                                    signupEmailController.text.isEmpty) {
+                                  // showing toast required fields
                                   final overlay = Overlay.of(context);
 
                                   final overlayEntry = OverlayEntry(
-                                    builder: (context) => Positioned(
-                                      bottom: 50,
-                                      left: MediaQuery.of(context).size.width * 0.2,
-                                      right: MediaQuery.of(context).size.width * 0.2,
-                                      child: ToastWidget(
-                                        message: "Successfully logged in!", 
-                                        success: true
-                                      )
-                                    )
-                                  );
-
+                                      builder: (context) => Positioned(
+                                          bottom: 50,
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          child: ToastWidget(
+                                              message:
+                                                  "Required fields missing!",
+                                              success: false)));
 
                                   // shows toast after build is completed
-                                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
                                     overlay.insert(overlayEntry);
                                   });
-                                  
 
                                   // hide toast after 2 seconds
-                                  Future.delayed(const Duration(seconds: 2), () {
+                                  Future.delayed(const Duration(seconds: 2),
+                                      () {
                                     overlayEntry.remove();
                                   });
 
-                                },
-                                child: Text("Login!"),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        controller: _scrollController,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              SignupWidget(
-                                emailFocusNode: _signupEmailFocus,
-                                usernameFocusNode: _signupUsernameFocus,
-                                passwordFocusNode: _signupPasswordFocus,
-                                firstNameFocusNode: _signupFirstNameFocus,
-                                lastNameFocusNode: _signupLastNameFocus,
-                                scrollToFocusedField: _scrollToFocusedField,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: redMainColor,
-                                  foregroundColor: Colors.white,
-                                ),
-                                onPressed: () async {
+                                  return;
+                                }
 
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  
-                                  
-                                  _signupResourceBlocked = true;
+                                if (EmailValidator.validate(
+                                    signupEmailController.text)) {
+                                  emailError = true;
 
-
-                                  if (signupUsernameController.text.isEmpty || 
-                                      signupPasswordController.text.isEmpty ||
-                                      signupEmailController.text.isEmpty) {
-
-                                      // showing toast required fields
-                                      final overlay = Overlay.of(context);
-
-                                      final overlayEntry = OverlayEntry(
-                                        builder: (context) => Positioned(
-                                          bottom: 50,
-                                          left: MediaQuery.of(context).size.width * 0.2,
-                                          right: MediaQuery.of(context).size.width * 0.2,
-                                          child: ToastWidget(
-                                            message: "Required fields missing!", 
-                                            success: false
-                                          )
-                                        )
-                                      );
-
-
-                                      // shows toast after build is completed
-                                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                                        overlay.insert(overlayEntry);
-                                      });
-                                      
-
-                                      // hide toast after 2 seconds
-                                      Future.delayed(const Duration(seconds: 2), () {
-                                        overlayEntry.remove();
-                                      });
-
-
-                                      return;
-                                  }
-
-
-                                  if (EmailValidator.validate(signupEmailController.text)) {
-
-                                      emailError = true;
-
-                                      // showing toast required fields
-                                      /* final overlay = Overlay.of(context);
+                                  // showing toast required fields
+                                  /* final overlay = Overlay.of(context);
 
                                       final overlayEntry = OverlayEntry(
                                         builder: (context) => Positioned(
@@ -330,85 +324,89 @@ class LoginPageState extends State<LoginPage> {
                                         overlayEntry.remove();
                                       }); */
 
+                                  return;
+                                }
 
-                                      return;
-                                  }
+                                await bloc
+                                    .signupUser(
+                                        signupUsernameController.text,
+                                        signupEmailController.text,
+                                        signupPasswordController.text,
+                                        signupFirstNameController.text,
+                                        signupLastNameController.text)
+                                    .then((_) {
+                                  _signupResourceBlocked = false;
 
+                                  if (!context.mounted) return;
 
-                                          
-                                  await bloc.signupUser(
-                                    signupUsernameController.text,
-                                    signupEmailController.text,
-                                    signupPasswordController.text,
-                                    signupFirstNameController.text,
-                                    signupLastNameController.text
-                                  ).then((_) {
-                                    _signupResourceBlocked = false;
-                                    
+                                  // showing toast signup successful
+                                  final overlay = Overlay.of(context);
 
-                                    if (!context.mounted) return;
-                                    
-                                    // showing toast signup successful
-                                    final overlay = Overlay.of(context);
-
-                                    final overlayEntry = OverlayEntry(
+                                  final overlayEntry = OverlayEntry(
                                       builder: (context) => Positioned(
-                                        bottom: 50,
-                                        left: MediaQuery.of(context).size.width * 0.2,
-                                        right: MediaQuery.of(context).size.width * 0.2,
-                                        child: ToastWidget(
-                                          message: "Successfully signed up!",
-                                          success: true
-                                        )
-                                      )
-                                    );
+                                          bottom: 50,
+                                          left: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          child: ToastWidget(
+                                              message:
+                                                  "Successfully signed up!",
+                                              success: true)));
 
-
-                                    // shows toast after build is completed
-                                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      overlay.insert(overlayEntry);
-                                    });
-                                    
-
-                                    // hide toast after 2 seconds
-                                    Future.delayed(const Duration(seconds: 2), () {
-                                      overlayEntry.remove();
-                                    });
-                                      
-                                    widget.redirectHomePage();
+                                  // shows toast after build is completed
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((_) {
+                                    overlay.insert(overlayEntry);
                                   });
 
-                                },
-                                child: Text("Sign up!"),
-                              )
-                            ],
-                          ),
+                                  // hide toast after 2 seconds
+                                  Future.delayed(const Duration(seconds: 2),
+                                      () {
+                                    overlayEntry.remove();
+                                  });
+
+                                  widget.redirectHomePage();
+                                });
+                              },
+                              child: Text("Sign up!"),
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ]
-        ),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
 
-
-
   void _scrollToFocusedField(FocusNode focusNode) {
 
+    print("VALORE DEL CONTROLLER LOGIN USERNAME EMAIL CONTROLLER: " + loginUsernameEmailController.text);
+    print("VALORE DEL CONTROLLER LOGIN PASSWORD CONTROLLER: " + loginPasswordController.text);
 
-    print("SIGNUP EMAIL CONTROLLER: " + signupEmailController.text);
+    print("VALORE DEL CONTROLLER SIGNUP FIRST NAME CONTROLLER: " + signupFirstNameController.text);
+    print("VALORE DEL CONTROLLER SIGNUP LAST NAME CONTROLLER: " + signupLastNameController.text);
+    print("VALORE DEL CONTROLLER SIGNUP EMAIL CONTROLLER: " + signupEmailController.text);
+    print("VALORE DEL CONTROLLER SIGNUP USERNAME CONTROLLER: " + signupUsernameController.text);
+    print("VALORE DEL CONTROLLER SIGNUP PASSWORD CONTROLLER: " + signupPasswordController.text);
 
 
     if (focusNode.hasFocus) {
       // execution is delayed in order to be sure that virtual keyboard is visible
       Future.delayed(const Duration(milliseconds: 630), () {
-        final RenderBox? renderBox = focusNode.context?.findRenderObject() as RenderBox?;
-        
+        final RenderBox? renderBox =
+            focusNode.context?.findRenderObject() as RenderBox?;
+
         if (renderBox == null) return;
 
         if (!mounted) {
@@ -423,17 +421,17 @@ class LoginPageState extends State<LoginPage> {
         final fieldPosition = renderBox.localToGlobal(Offset.zero).dy;
         final fieldHeight = renderBox.size.height;
 
-        final isFieldCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight;
-        final isFieldAlmostCovered = fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
+        final isFieldCovered =
+            fieldPosition + fieldHeight > screenHeight - keyboardHeight;
+        final isFieldAlmostCovered =
+            fieldPosition + fieldHeight > screenHeight - keyboardHeight - 30;
 
         // scroll if field is covered by keyboard
         if (isFieldCovered || isFieldAlmostCovered) {
-          Scrollable.ensureVisible(
-            focusNode.context!,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-            alignment: 0.2
-          );
+          Scrollable.ensureVisible(focusNode.context!,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              alignment: 0.2);
         }
       });
     }
